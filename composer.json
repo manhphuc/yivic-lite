@@ -1,0 +1,34 @@
+{
+  "name": "yivic/yivic-lite",
+  "description": "Yivic Lite – lightweight Laravel-style WordPress theme.",
+  "type": "wordpress-theme",
+  "license": "GPL-3.0-or-later",
+  "homepage": "https://github.com/manhphuc/yivic-lite",
+  "version": "1.0.3",
+  "authors": [
+    {
+      "name": "Phuc Nguyen",
+      "email": "manhphucofficial@yahoo.com",
+      "homepage": "https://github.com/manhphuc",
+      "role": "Developer"
+    }
+  ],
+  "keywords": [
+    "yivic",
+    "theme",
+    "wordpress",
+    "blog"
+  ],
+  "require": {
+    "php": ">=7.4"
+  },
+  "autoload": {
+    "classmap": [
+      "src/"
+    ]
+  },
+  "config": {
+    "optimize-autoloader": true,
+    "classmap-authoritative": true
+  }
+}
