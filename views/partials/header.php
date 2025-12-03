@@ -24,15 +24,31 @@ defined( 'ABSPATH' ) || exit;
             <?php endif; ?>
         </div>
 
-        <nav class="yivic-lite-header__nav">
-            <?php
-            wp_nav_menu( [
-                'theme_location' => 'primary',
-                'container'      => false,
-                'menu_class'     => 'yivic-lite-header__menu',
-                'fallback_cb'    => false,
-            ] );
-            ?>
+        <nav class="yivic-lite-header__nav" aria-label="<?php esc_attr_e( 'Primary menu', 'yivic-lite' ); ?>">
+
+            <?php if ( has_nav_menu( 'primary' ) ) : ?>
+
+                <?php
+                wp_nav_menu( [
+                        'theme_location' => 'primary',
+                        'container'      => false,
+                        'menu_class'     => 'yivic-lite-header__menu',
+                        'fallback_cb'    => false,
+                ] );
+                ?>
+
+            <?php else : ?>
+
+                <ul class="yivic-lite-header__menu yivic-lite-header__menu--fallback">
+                    <?php
+                    wp_list_pages( [
+                            'title_li' => '',
+                    ] );
+                    ?>
+                </ul>
+
+            <?php endif; ?>
+
         </nav>
 
     </div>

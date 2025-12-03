@@ -167,6 +167,15 @@ class YivicLite_WP_Theme extends Container implements WPThemeInterface {
             'before_title'  => '<h2 class="widget-title">',
             'after_title'   => '</h2>',
         ] );
+
+        // Register navigation menu locations so the theme
+        // is fully compatible with the Menus screen.
+        register_nav_menus(
+            [
+                'primary' => __( 'Primary Menu', $this->textDomain ),
+                'footer'  => __( 'Footer Menu', $this->textDomain ),
+            ]
+        );
     }
 
     /**
