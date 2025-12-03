@@ -95,7 +95,16 @@ if ( $query->have_posts() ) :
             </footer>
         </article>
 
-    <?php
+        <?php
+        /**
+         * Comments section.
+         * Use the standard WordPress comments_template() so the theme
+         * stays fully compatible with core expectations.
+         */
+        if ( comments_open() || get_comments_number() ) :
+            comments_template();
+        endif;
+
     endwhile;
 
     // Post navigation (previous/next).
