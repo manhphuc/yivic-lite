@@ -174,9 +174,18 @@ class YivicLite_WP_Theme extends Container {
     public function enqueueAssets(): void {
         wp_enqueue_style(
             'yivic-lite-style',
-            $this->baseUrl . '/public-assets/dist/css/style.css',
+            $this->baseUrl . '/public-assets/dist/css/main.css',
             [],
             $this->version ?? null
         );
+
+        wp_enqueue_script(
+            'yivic-lite-script',
+            $this->baseUrl . '/public-assets/dist/js/main.js',
+            [],
+            $this->version ?? null,
+            true
+        );
+
     }
 }
