@@ -156,6 +156,16 @@ class YivicLite_WP_Theme extends Container {
         add_theme_support( 'post-thumbnails' );
         add_theme_support( 'custom-logo' );
         add_theme_support( 'automatic-feed-links' );
+
+        register_sidebar( [
+            'name'          => __( 'Primary Sidebar', $this->textDomain ),
+            'id'            => 'sidebar-1',
+            'description'   => __( 'Main sidebar area.', $this->textDomain ),
+            'before_widget' => '<section id="%1$s" class="widget %2$s">',
+            'after_widget'  => '</section>',
+            'before_title'  => '<h2 class="widget-title">',
+            'after_title'   => '</h2>',
+        ] );
     }
 
     /**
@@ -164,7 +174,7 @@ class YivicLite_WP_Theme extends Container {
     public function enqueueAssets(): void {
         wp_enqueue_style(
             'yivic-lite-style',
-            $this->baseUrl . '/style.css',
+            $this->baseUrl . '/public-assets/dist/css/style.css',
             [],
             $this->version ?? null
         );
