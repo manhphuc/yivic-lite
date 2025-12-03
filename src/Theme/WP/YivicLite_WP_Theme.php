@@ -9,6 +9,7 @@ use Yivic\YivicLite\Theme\Support\Container;
 use Yivic\YivicLite\Theme\Traits\ConfigTrait;
 use Yivic\YivicLite\Theme\Traits\WPAttributeTrait;
 use Yivic\YivicLite\Theme\Services\ViewService;
+use Yivic\YivicLite\Theme\Interfaces\WPThemeInterface;
 
 /**
  * Core theme kernel for Yivic Lite.
@@ -16,7 +17,7 @@ use Yivic\YivicLite\Theme\Services\ViewService;
  * registration, configuration binding, and centralized
  * initialization similar to a small Laravel-style kernel.
  */
-class YivicLite_WP_Theme extends Container {
+class YivicLite_WP_Theme extends Container implements WPThemeInterface {
     use ConfigTrait;
     use WPAttributeTrait;
 
