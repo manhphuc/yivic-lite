@@ -1,0 +1,65 @@
+// ================================
+// Layout Wrapper
+// ================================
+.yivic-lite-page__wrap {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+// ================================
+// Layout
+// ================================
+.yivic-lite-layout {
+  flex: 1;
+
+  &__container {
+    display: flex;
+    gap: 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem 1rem;
+  }
+
+  &__main {
+    flex: 1 1 auto;
+  }
+
+  &__sidebar {
+    flex: 0 0 300px;
+  }
+}
+
+// ================================
+// Header
+// ================================
+.yivic-lite-header {
+  border-bottom: 1px solid #eee;
+  margin-bottom: 1rem;
+
+  &__inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+}
+
+// ================================
+// Footer
+// ================================
+.yivic-lite-footer {
+  border-top: 1px solid #eee;
+  margin-top: 2rem;
+
+  &__inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 1rem;
+    text-align: center;
+    font-size: 0.875rem;
+    color: #666;
+  }
+}
