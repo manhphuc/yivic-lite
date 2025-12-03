@@ -23,9 +23,9 @@
     "php": ">=7.4"
   },
   "autoload": {
-    "classmap": [
-      "src/"
-    ]
+    "psr-4": {
+      "Yivic\\YivicLite\\": "src/"
+    }
   },
   "config": {
     "optimize-autoloader": true,
