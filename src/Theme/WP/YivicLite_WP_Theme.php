@@ -141,6 +141,8 @@ class YivicLite_WP_Theme extends Container implements WPThemeInterface {
      */
     public function initTheme(): void {
         add_action( 'after_setup_theme', [ $this, 'setupTheme' ] );
+        add_action( 'widgets_init', [ $this, 'registerSidebars' ] );
+        add_action( 'init', [ $this, 'registerBlockFeatures' ] );
         add_action( 'wp_enqueue_scripts', [ $this, 'enqueueAssets' ] );
     }
 
@@ -149,34 +151,130 @@ class YivicLite_WP_Theme extends Container implements WPThemeInterface {
      */
     public function setupTheme(): void {
         load_theme_textdomain(
-            $this->textDomain,
+            'yivic-lite',
             $this->basePath . '/languages'
         );
 
+        // Core supports.
         add_theme_support( 'title-tag' );
         add_theme_support( 'post-thumbnails' );
         add_theme_support( 'custom-logo' );
         add_theme_support( 'automatic-feed-links' );
 
-        register_sidebar( [
-            'name'          => __( 'Primary Sidebar', $this->textDomain ),
-            'id'            => 'sidebar-1',
-            'description'   => __( 'Main sidebar area.', $this->textDomain ),
-            'before_widget' => '<section id="%1$s" class="widget %2$s">',
-            'after_widget'  => '</section>',
-            'before_title'  => '<h2 class="widget-title">',
-            'after_title'   => '</h2>',
-        ] );
+        // Recommended block & HTML5 supports for modern themes.
+        add_theme_support(
+            'html5',
+            [
+                'search-form',
+                'comment-form',
+                'comment-list',
+                'gallery',
+                'caption',
+                'style',
+                'script',
+                'navigation-widgets',
+            ]
+        );
+
+        add_theme_support( 'wp-block-styles' );
+        add_theme_support( 'responsive-embeds' );
+        add_theme_support( 'align-wide' );
+
+        // Optional header/background (recommended by Theme Check).
+        add_theme_support(
+            'custom-header',
+            [
+                'width'       => 1600,
+                'height'      => 400,
+                'flex-width'  => true,
+                'flex-height' => true,
+                'header-text' => false,
+            ]
+        );
+
+        add_theme_support(
+            'custom-background',
+            [
+                'default-color' => 'ffffff',
+            ]
+        );
+
+        add_editor_style( 'public-assets/dist/css/admin.css' );
 
         // Register navigation menu locations so the theme
         // is fully compatible with the Menus screen.
         register_nav_menus(
             [
-                'primary' => __( 'Primary Menu', $this->textDomain ),
-                'footer'  => __( 'Footer Menu', $this->textDomain ),
+                'primary' => __( 'Primary Menu', 'yivic-lite' ),
+                'footer'  => __( 'Footer Menu', 'yivic-lite' ),
             ]
         );
     }
+
+    /**
+     * Register widget areas.
+     */
+    public function registerSidebars(): void {
+        register_sidebar(
+            [
+                'name'          => __( 'Primary Sidebar', 'yivic-lite' ),
+                'id'            => 'sidebar-1',
+                'description'   => __( 'Main sidebar area.', 'yivic-lite' ),
+                'before_widget' => '<section id="%1$s" class="widget %2$s">',
+                'after_widget'  => '</section>',
+                'before_title'  => '<h2 class="widget-title">',
+                'after_title'   => '</h2>',
+            ]
+        );
+    }
+
+    public function registerBlockFeatures(): void {
+        // Do nothing on very old WordPress where block APIs do not exist.
+        if ( ! function_exists( 'register_block_style' ) ) {
+            return;
+        }
+
+        // Custom style cho core/image.
+        register_block_style(
+            'core/image',
+            [
+                'name'  => 'yivic-lite-frame',
+                'label' => __( 'Framed image', 'yivic-lite' ),
+            ]
+        );
+
+        if ( function_exists( 'register_block_pattern_category' ) ) {
+            register_block_pattern_category(
+                'yivic-lite',
+                [
+                    'label' => __( 'Yivic Lite', 'yivic-lite' ),
+                ]
+            );
+        }
+
+        if ( function_exists( 'register_block_pattern' ) ) {
+            register_block_pattern(
+                'yivic-lite/hero-intro',
+                [
+                    'title'       => __( 'Simple hero header', 'yivic-lite' ),
+                    'description' => __( 'A centered hero heading with intro text.', 'yivic-lite' ),
+                    'categories'  => [ 'yivic-lite' ],
+                    'content'     => '<!-- wp:group {"align":"full","layout":{"type":"constrained"}} -->
+                                        <div class="wp-block-group alignfull">
+                                            <!-- wp:heading {"textAlign":"center","level":1} -->
+                                            <h1 class="has-text-align-center">Yivic Lite</h1>
+                                            <!-- /wp:heading -->
+                                            <!-- wp:paragraph {"align":"center"} -->
+                                            <p class="has-text-align-center">A lightweight theme focused on clean typography.</p>
+                                            <!-- /wp:paragraph -->
+                                        </div>
+                                        <!-- /wp:group -->'
+                    ,
+                ]
+            );
+        }
+    }
+
 
     /**
      * Register & enqueue theme assets.
@@ -196,6 +294,11 @@ class YivicLite_WP_Theme extends Container implements WPThemeInterface {
             $this->version ?? null,
             true
         );
+
+        // Recommended: threaded comments support.
+        if ( is_singular() && comments_open() && get_option( 'thread_comments' ) ) {
+            wp_enqueue_script( 'comment-reply' );
+        }
 
     }
 }

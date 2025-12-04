@@ -8,17 +8,26 @@ if (!$query->have_posts()) : ?>
     <?php while ($query->have_posts()) : $query->the_post(); ?>
         <article id="post-<?php the_ID(); ?>" <?php post_class('yivic-post'); ?>>
 
-            <h2 class="yivic-post__title">
+            <?php if ( has_post_thumbnail() ) : ?>
+                <figure class="yivic-lite-post__thumbnail">
+                    <a href="<?php the_permalink(); ?>">
+                        <?php the_post_thumbnail( 'large' ); ?>
+                    </a>
+                </figure>
+            <?php endif; ?>
+
+
+            <h2 class="yivic-lite-post__title">
                 <a href="<?php the_permalink(); ?>">
                     <?php the_title(); ?>
                 </a>
             </h2>
 
-            <div class="yivic-post__meta">
+            <div class="yivic-lite-post__meta">
                 <?php the_time(get_option('date_format')); ?>
             </div>
 
-            <div class="yivic-post__excerpt">
+            <div class="yivic-lite-post__excerpt">
                 <?php the_excerpt(); ?>
             </div>
 

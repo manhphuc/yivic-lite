@@ -13,7 +13,7 @@ defined( 'ABSPATH' ) || exit;
     <div class="yivic-lite-layout__container">
 
         <main class="yivic-lite-layout__main">
-            <?= isset( $content ) ? $content : '' ?>
+            <?php echo $content ?? ''; ?>
         </main>
 
         <aside class="yivic-lite-layout__sidebar">
