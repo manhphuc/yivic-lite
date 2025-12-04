@@ -96,7 +96,7 @@ class ViewService {
          */
         if ( $fullPath === '' || ! file_exists( $fullPath ) ) {
             $errorMessage = sprintf(
-                __( 'View file not found: %s', $this->textDomain ),
+                __( 'View file not found: %s', 'yivic-lite' ),
                 $viewFilePath . $extension
             );
 

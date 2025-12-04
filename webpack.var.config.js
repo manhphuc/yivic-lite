@@ -17,6 +17,10 @@ const webpackParams = {
             basePath + '/public-assets/src/scss/main.scss',
             basePath + '/public-assets/src/js/main.js',
         ],
+        admin: [
+            basePath + '/public-assets/src/scss/admin.scss',
+            basePath + '/public-assets/src/js/admin.js',
+        ],
     },
 
     /** Output file locations (relative to the theme root) */

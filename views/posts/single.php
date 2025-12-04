@@ -24,6 +24,13 @@ if ( $query->have_posts() ) :
 
         <article id="post-<?php the_ID(); ?>" <?php post_class( 'yivic-lite-post' ); ?>>
             <header class="yivic-lite-post__header">
+
+                <?php if ( has_post_thumbnail() ) : ?>
+                    <figure class="yivic-lite-post__thumbnail yivic-lite-post__thumbnail--single">
+                        <?php the_post_thumbnail( 'large' ); ?>
+                    </figure>
+                <?php endif; ?>
+
                 <h1 class="yivic-lite-post__title">
                     <?php the_title(); ?>
                 </h1>
