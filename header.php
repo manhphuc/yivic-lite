@@ -15,8 +15,4 @@ use Yivic\YivicLite\Theme\WP\YivicLite_WP_Theme;
 <?php wp_body_open(); ?>
 
 <div class="yivic-lite-page__wrap">
-
-    <?php
-    // Visual header block.
-    echo YivicLite_WP_Theme::view()->render( 'views/partials/header' );
-    ?>
+    <?php echo YivicLite_WP_Theme::view()->render( 'views/partials/header' ); ?>

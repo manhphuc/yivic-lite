@@ -144,6 +144,7 @@ class YivicLite_WP_Theme extends Container implements WPThemeInterface {
         add_action( 'widgets_init', [ $this, 'registerSidebars' ] );
         add_action( 'init', [ $this, 'registerBlockFeatures' ] );
         add_action( 'wp_enqueue_scripts', [ $this, 'enqueueAssets' ] );
+        add_filter( 'walker_nav_menu_start_el', [ $this, 'yivicLiteThemeNavDescription' ] , 10, 4 );
     }
 
     /**
@@ -300,5 +301,25 @@ class YivicLite_WP_Theme extends Container implements WPThemeInterface {
             wp_enqueue_script( 'comment-reply' );
         }
 
+    }
+
+    /**
+     * Add dropdown arrow to menu items that have children (all depths).
+     */
+    public function yivicLiteThemeNavDescription( $item_output, $item, $depth, $args ) {
+        if ( isset( $args->theme_location ) && 'primary' === $args->theme_location ) {
+
+            $classes = isset( $item->classes ) ? (array) $item->classes : [];
+
+            if ( in_array( 'menu-item-has-children', $classes, true ) ) {
+                $arrow  = '<button type="button" class="yivic-lite-header__arrow yivic-dropdownsIcon"';
+                $arrow .= ' aria-expanded="false" aria-label="' . esc_attr__( 'Toggle submenu', 'yivic-lite' ) . '"></button>';
+
+                // insert arrow right after </a>
+                $item_output = str_replace( '</a>', '</a>' . $arrow, $item_output );
+            }
+        }
+
+        return $item_output;
     }
 }

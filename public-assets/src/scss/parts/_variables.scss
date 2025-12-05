@@ -1,0 +1,33 @@
+// =====================================
+// Yivic Lite – Header variables
+// =====================================
+$bg_main:                          #313b45;
+$height_nav:                       60px;
+
+// Heights
+$yivic-header-height:              60px;
+$yivic-header-menu-line-height:    40px;
+$yivic-header-submenu-item-height: 50px;
+
+// Layout
+$yivic-header-logo-max-width:      190px;
+$yivic-header-submenu-min-width:   180px;
+$yivic-header-gutter-x:            14px;
+$yivic-header-submenu-padding-x:   18px;
+
+// Colors
+$yivic-header-bg:                  $bg_main;
+$yivic-header-text-color:          #fff;
+$yivic-header-submenu-border:      #ffffff1a;
+$yivic-header-submenu-hover-bg:    rgba(255, 255, 255, 0.08);
+$yivic-header-arrow-bg:            rgba(255, 255, 255, 0.1);
+
+// Z-index & transition
+$yivic-header-z-offcanvas:         1000;
+$yivic-header-transition-fast:     0.3s ease;
+$yivic-header-transition-medium:   0.4s ease;
+
+// Icons
+$yivic-header-arrow-size:          20px;
+$yivic-header-arrow-box-size:      40px;
+$yivic-header-arrow-gap-x:         6px;
