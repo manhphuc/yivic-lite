@@ -1,1 +1,1 @@
-console.log('Hello!');
+import './parts/menu';

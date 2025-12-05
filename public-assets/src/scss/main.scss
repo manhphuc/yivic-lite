@@ -1,3 +1,23 @@
+/* Import Theming main */
+@import "parts/theming";
+
+// Import Fonts
+@import "parts/font";
+
+// Global Variables
+@import "parts/variables";
+
+@import "parts/mixins";
+
+// Reset global
+@import "parts/reset";
+
+// Base main CSS global
+@import "parts/base";
+
+
+// Home Main Sections
+
 // ================================
 // Layout Wrapper
 // ================================
@@ -33,19 +53,12 @@
 // ================================
 // Header
 // ================================
-.yivic-lite-header {
-  border-bottom: 1px solid #eee;
-  margin-bottom: 1rem;
+@import "modules/header/yivic-lite-header";
 
-  &__inner {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 1rem;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-  }
-}
+// ================================
+// Menu
+// ================================
+@import "modules/menu/yivic-lite-main-menu";
 
 // ================================
 // Footer
@@ -64,87 +77,5 @@
   }
 }
 
-// ================================
-// WordPress core helper classes
-// ================================
-
-// Captions
-.wp-caption {
-  margin: 0 0 1.5rem;
-  max-width: 100%;
-
-  img {
-    display: block;
-    max-width: 100%;
-    height: auto;
-  }
-}
-
-.wp-caption-text {
-  margin-top: 0.5rem;
-  font-size: 0.875rem;
-  color: #555555;
-  text-align: center;
-}
-
-// Sticky posts
-.sticky {
-  position: relative;
-}
-
-// Comment by post author
-.bypostauthor {
-  font-weight: 600;
-}
-
-// Gallery captions
-.gallery-caption {
-  font-size: 0.875rem;
-  color: #555555;
-}
-
-// ================================
-// Alignment helpers
-// ================================
-.alignleft {
-  float: left;
-  margin: 0 1.5rem 1.5rem 0;
-}
-
-.alignright {
-  float: right;
-  margin: 0 0 1.5rem 1.5rem;
-}
-
-.aligncenter {
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
-  margin-bottom: 1.5rem;
-}
-
-// ================================
-// Screen reader text
-// ================================
-.screen-reader-text {
-  border: 0;
-  clip: rect(1px, 1px, 1px, 1px);
-  clip-path: inset(50%);
-  height: 1px;
-  margin: -1px;
-  overflow: hidden;
-  padding: 0;
-  position: absolute;
-  width: 1px;
-  word-wrap: normal !important;
-}
-
-.screen-reader-text:focus {
-  clip: auto;
-  clip-path: none;
-  height: auto;
-  margin: 0;
-  overflow: visible;
-  position: static;
-  width: auto;
-}
+/* Yivic import last main */
+@import "parts/breakpoints";

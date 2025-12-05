@@ -1,0 +1,26 @@
+// =======================================
+// Global Mixins – Yivic Lite
+// =======================================
+
+// Flex center utility
+@mixin yivic-flex-center($inline: false) {
+  @if $inline {
+    display: inline-flex;
+  } @else {
+    display: flex;
+  }
+  align-items: center;
+  justify-content: center;
+}
+
+// Text truncate (optional, dùng nhiều trong header/menu)
+@mixin yivic-truncate {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+// Smooth transition utility
+@mixin yivic-transition($prop: all, $time: 0.3s, $ease: ease) {
+  transition: #{$prop} #{$time} #{$ease};
+}

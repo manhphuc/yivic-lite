@@ -1,0 +1,204 @@
+// =======================================
+// Desktop navigation (BEM version of old .yivic-navMain)
+// =======================================
+.yivic-lite-header {
+
+  // Extra desktop tweaks for sub-menu inside header menu
+  .yivic-lite-header__menu {
+    .sub-menu {
+      padding: 0;
+
+      // Level 2+ sub-menu inside another sub-menu
+      .sub-menu {
+        padding-left: 0;
+      }
+
+      // Arrow inside sub-menu items
+      .yivic-lite-header__arrow {
+        margin: 0;
+        height: $yivic-header-submenu-item-height;
+        width: $yivic-header-submenu-item-height;
+        background-color: $yivic-header-arrow-bg;
+      }
+
+      // Anchor inside sub-menu items
+      > li > a {
+        height: $yivic-header-submenu-item-height;
+        padding: 0 26px;
+        border-bottom: 1px solid $yivic-header-submenu-border;
+      }
+    }
+  }
+
+  // -----------------------------------
+  // Arrow icon (desktop layout version)
+  // -----------------------------------
+  &__arrow {
+    position: static;
+    @include yivic-flex-center(true); // inline-flex + center
+    flex-shrink: 0;
+
+    width: 14px;                      // keep explicit size for inline arrow
+    height: 14px;
+    margin-left: $yivic-header-arrow-gap-x;
+    margin-top: 2px;
+
+    cursor: pointer;
+    border: 0;
+    padding: 0;
+    background-color: transparent;
+  }
+
+  &__arrow.yivic-dropdownsIcon {
+    background:
+            url('./../../../../../../dist/img/yivic-lite-arrow-down.svg')
+            center center / $yivic-header-arrow-size $yivic-header-arrow-size
+            no-repeat;
+  }
+
+  // -----------------------------------
+  // Main nav bar
+  // -----------------------------------
+  &__nav {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    column-gap: 32px;
+  }
+
+  // Logo block (equivalent to .navbar .logo)
+  &__logo {
+    float: none;
+    display: flex;
+    align-items: center;
+    margin-right: 16px;
+  }
+
+  // -----------------------------------
+  // Links wrapper (equivalent to .nav-links)
+  // -----------------------------------
+  &__links {
+    background: transparent;
+    box-shadow: none;
+    display: block;
+    height: auto;
+    left: auto;
+    line-height: $height_nav;
+    max-width: none;
+    padding: 0;
+    position: static;
+    top: 0;
+    z-index: auto;
+    width: auto;
+
+    // Sidebar logo only on mobile
+    .sidebar-logo,
+    .yivic-lite-header__sidebar-logo {
+      display: none;
+    }
+  }
+
+  // -----------------------------------
+  // Search box
+  // -----------------------------------
+  &__search {
+    margin-left: auto;
+    float: none;
+  }
+
+  // ============================
+  // MAIN MENU LIST (.links)
+  // ============================
+  &__menu {
+
+    &.links {
+      margin-top: 0;
+
+      > li {
+        position: relative;
+        float: left;
+        list-style: none;
+        padding: 0 $yivic-header-gutter-x;
+        display: flex;
+        align-items: center;
+        column-gap: $yivic-header-arrow-gap-x;
+
+        > a {
+          display: flex;
+          align-items: center;
+          height: 100%;
+          color: $yivic-header-text-color;
+          text-decoration: none;
+          white-space: nowrap;
+          font-size: 15px;
+          font-weight: 500;
+          padding: 0;
+        }
+      }
+    }
+  }
+
+  // ============================
+  // DROPDOWN (SUB-MENU)
+  // ============================
+  &__menu {
+
+    // Base hidden state for all sub-menus
+    .sub-menu {
+      display: none;
+      position: absolute;
+      top: 100%;
+      left: 0;
+      min-width: $yivic-header-submenu-min-width;
+      background: $yivic-header-bg;
+      padding: 10px 0;
+      margin: 0;
+      list-style: none;
+      z-index: 9999;
+    }
+
+    // Sub-menu list items
+    .sub-menu > li {
+      display: flex;
+      align-items: center;
+      padding: 0;
+    }
+
+    // Sub-menu link style
+    .sub-menu > li > a {
+      flex: 1;
+      display: flex;
+      align-items: center;
+
+      padding: 8px $yivic-header-submenu-padding-x;
+      font-size: 14px;
+      color: $yivic-header-text-color;
+      text-decoration: none;
+      white-space: nowrap;
+
+      &:hover {
+        background: $yivic-header-submenu-hover-bg;
+      }
+    }
+
+    // Hover to open sub-menu
+    > .links > li:hover > .sub-menu {
+      display: block;
+    }
+
+    // Nested sub-menus (level 2+)
+    .sub-menu .sub-menu {
+      top: 0;
+      left: 100%;
+      padding-left: 0;
+    }
+  }
+
+  // -----------------------------------
+  // Hamburger hidden on desktop
+  // -----------------------------------
+  &__toggle,
+  .yivicToggle-icon {
+    display: none;
+  }
+}
