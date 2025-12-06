@@ -21,7 +21,9 @@ if ( $query->have_posts() ) :
         $query->the_post();
         ?>
 
-        <article id="post-<?php the_ID(); ?>" <?php post_class( 'yivic-lite-page' ); ?>>
+        <?php $classes = 'yivic-lite-page yivic-lite-page--single'; ?>
+        <article id="post-<?php the_ID(); ?>" <?php post_class( $classes ); ?>>
+
             <header class="yivic-lite-page__header">
                 <h1 class="yivic-lite-page__title">
                     <?php the_title(); ?>
@@ -31,13 +33,12 @@ if ( $query->have_posts() ) :
             <div class="yivic-lite-page__content">
                 <?php
                 the_content();
-
                 // Support for paginated pages.
                 wp_link_pages(
-                    [
-                        'before' => '<div class="yivic-lite-page__pagination">',
-                        'after'  => '</div>',
-                    ]
+                        [
+                                'before' => '<div class="yivic-lite-page__pagination">',
+                                'after'  => '</div>',
+                        ]
                 );
                 ?>
             </div>
@@ -45,9 +46,9 @@ if ( $query->have_posts() ) :
             <footer class="yivic-lite-page__footer">
                 <?php
                 edit_post_link(
-                    esc_html__( 'Edit this page', 'yivic-lite' ),
-                    '<span class="yivic-lite-page__edit">',
-                    '</span>'
+                        esc_html__( 'Edit this page', 'yivic-lite' ),
+                        '<span class="yivic-lite-page__edit">',
+                        '</span>'
                 );
                 ?>
             </footer>
@@ -57,6 +58,7 @@ if ( $query->have_posts() ) :
                     <?php comments_template(); ?>
                 </section>
             <?php endif; ?>
+
         </article>
 
     <?php

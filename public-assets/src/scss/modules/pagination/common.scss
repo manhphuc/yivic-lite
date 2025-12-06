@@ -1,0 +1,35 @@
+// =======================================
+// Pagination (BEM helper)
+// Block: .yivic-pagination
+// =======================================
+
+.yivic-pagination {
+  margin: 24px 0;
+  text-align: center;
+
+  ul {
+    display: inline-flex;
+    gap: 4px;
+    padding: 0;
+    margin: 0;
+    list-style: none;
+  }
+
+  .page-numbers {
+    min-width: 32px;
+    padding: 6px 10px;
+    border-radius: 999px;
+    font-size: 13px;
+    text-decoration: none;
+    color: $yivic-post-meta-color;
+    border: 1px solid #ddd;
+    @include yivic-transition(background-color, $yivic-header-transition-fast);
+
+    &.current,
+    &:hover {
+      background-color: $yivic-post-category-bg;
+      border-color: $yivic-post-category-bg;
+      color: #fff;
+    }
+  }
+}

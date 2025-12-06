@@ -8,6 +8,7 @@
  *
  * @var WP_Query|null $query
  */
+use Yivic\YivicLite\Theme\WP\YivicLite_WP_Theme;
 
 defined('ABSPATH') || exit;
 
@@ -21,88 +22,14 @@ if ( $query->have_posts() ) :
     while ( $query->have_posts() ) :
         $query->the_post();
         ?>
-
-        <article id="post-<?php the_ID(); ?>" <?php post_class( 'yivic-lite-post' ); ?>>
-            <header class="yivic-lite-post__header">
-
-                <?php if ( has_post_thumbnail() ) : ?>
-                    <figure class="yivic-lite-post__thumbnail yivic-lite-post__thumbnail--single">
-                        <?php the_post_thumbnail( 'large' ); ?>
-                    </figure>
-                <?php endif; ?>
-
-                <h1 class="yivic-lite-post__title">
-                    <?php the_title(); ?>
-                </h1>
-
-                <div class="yivic-lite-post__meta">
-                    <span class="yivic-lite-post__meta-item yivic-lite-post__meta-item--date">
-                        <?php echo esc_html( get_the_date() ); ?>
-                    </span>
-
-                    <span class="yivic-lite-post__meta-item yivic-lite-post__meta-item--author">
-                        <?php
-                        /* translators: %s: post author name */
-                        printf(
-                            esc_html__( 'by %s', 'yivic-lite' ),
-                            esc_html( get_the_author() )
-                        );
-                        ?>
-                    </span>
-                </div>
-            </header>
-
-            <div class="yivic-lite-post__content">
-                <?php
-                /**
-                 * Use the_content() to render full block markup.
-                 * This is critical so headings, lists and other
-                 * Gutenberg blocks are displayed correctly.
-                 */
-                the_content();
-
-                // Paginated posts support.
-                wp_link_pages(
-                    [
-                        'before' => '<div class="yivic-lite-post__pages">',
-                        'after'  => '</div>',
-                    ]
-                );
-                ?>
-            </div>
-
-            <footer class="yivic-lite-post__footer">
-                <div class="yivic-lite-post__categories">
-                    <?php
-                    $categories_list = get_the_category_list( ', ' );
-                    if ( $categories_list ) :
-                        ?>
-                        <span class="yivic-lite-post__label">
-                            <?php esc_html_e( 'Categories:', 'yivic-lite' ); ?>
-                        </span>
-                        <span class="yivic-lite-post__value">
-                            <?php echo wp_kses_post( $categories_list ); ?>
-                        </span>
-                    <?php endif; ?>
-                </div>
-
-                <div class="yivic-lite-post__tags">
-                    <?php
-                    $tags_list = get_the_tag_list( '', ', ' );
-                    if ( $tags_list ) :
-                        ?>
-                        <span class="yivic-lite-post__label">
-                            <?php esc_html_e( 'Tags:', 'yivic-lite' ); ?>
-                        </span>
-                        <span class="yivic-lite-post__value">
-                            <?php echo wp_kses_post( $tags_list ); ?>
-                        </span>
-                    <?php endif; ?>
-                </div>
-            </footer>
+        <?php $classes = 'yivic-lite-post yivic-lite-post--single'; ?>
+        <article id="post-<?php the_ID(); ?>" <?php post_class( $classes ); ?> >
+            <?php echo YivicLite_WP_Theme::view()->render( 'views/single/_single-header' ); ?>
+            <?php echo YivicLite_WP_Theme::view()->render( 'views/single/_single-content' ); ?>
+            <?php echo YivicLite_WP_Theme::view()->render( 'views/single/_single-footer' ); ?>
         </article>
-
         <?php
+
         /**
          * Comments section.
          * Use the standard WordPress comments_template() so the theme
@@ -115,13 +42,14 @@ if ( $query->have_posts() ) :
     endwhile;
 
     // Post navigation (previous/next).
+    echo '<div class="yivic-lite-post-nav">';
     the_post_navigation(
         [
             'prev_text' => esc_html__( 'Previous post', 'yivic-lite' ),
             'next_text' => esc_html__( 'Next post', 'yivic-lite' ),
         ]
     );
-
+    echo '</div>';
 else :
     ?>
 

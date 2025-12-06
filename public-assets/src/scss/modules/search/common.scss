@@ -1,0 +1,70 @@
+/* ============================================================
+   Search Results – Mobile First Layout
+   Block: .yivic-lite-search
+   Elements:
+      __empty      - message when no results found
+      __form       - container for search form
+      __results    - list of posts
+   Form block:
+      .yivic-lite-search-form
+============================================================ */
+
+.yivic-lite-search {
+  max-width: 740px;
+  margin: 0 auto;
+  padding: 16px;
+  background: #ffffff;
+  border-radius: 6px;
+  color: $yivic-post-text-color;
+}
+
+/* --------------------------------------------
+   Empty result message
+-------------------------------------------- */
+.yivic-lite-search__empty {
+  margin: 20px 0 20px;
+  padding: 14px 16px;
+  background: #fafafa;
+  border: 1px solid rgba(0,0,0,0.06);
+  border-radius: 6px;
+  font-size: 15px;
+  text-align: center;
+  color: $yivic-post-meta-color;
+}
+
+/* --------------------------------------------
+   Search Form wrapper
+-------------------------------------------- */
+.yivic-lite-search__form {
+  margin-bottom: 24px;
+}
+
+/* --------------------------------------------
+   Search Form (input + hidden submit)
+-------------------------------------------- */
+.yivic-lite-search-form {
+  display: flex;
+  width: 100%;
+}
+
+.yivic-lite-search-form__field {
+  flex: 1;
+  padding: 12px 14px;
+  font-size: 15px;
+  border-radius: 6px;
+  border: 1px solid rgba(0,0,0,0.12);
+  background: #ffffff;
+  color: $yivic-post-text-color;
+
+  @include yivic-transition(border-color);
+
+  &:focus {
+    outline: none;
+    border-color: $yivic-header-bg;
+  }
+}
+
+/* Hidden submit but accessible */
+.yivic-lite-search-form__submit {
+  display: none;
+}

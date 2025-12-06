@@ -1,0 +1,62 @@
+// =======================================
+// Post list layout – LG breakpoint overrides
+// Mobile styles are defined in the base file,
+// this file only tweaks desktop behaviour.
+// =======================================
+
+// Base spacing on desktop
+.yivic-post {
+
+}
+
+// ---------------------------------------
+// Case 1: Post with thumbnail
+// ---------------------------------------
+
+.yivic-post--has-thumb {
+  display: grid;
+  grid-template-columns: $yivic-post-thumb-width 1fr; // thumb left, content right
+  column-gap: $yivic-post-gap-x;
+  align-items: stretch;
+}
+
+// Thumbnail column on the left
+.yivic-post--has-thumb .yivic-lite-post__thumbnail {
+  grid-row: 1 / 4; // span title + meta + excerpt
+  grid-column: 1 / 2;
+  min-height: $yivic-post-thumb-height;
+}
+
+// Content column on the right
+.yivic-post--has-thumb .yivic-lite-post__title,
+.yivic-post--has-thumb .yivic-lite-post__meta,
+.yivic-post--has-thumb .yivic-lite-post__excerpt {
+  grid-column: 2 / 3;
+}
+
+// Slightly larger title on desktop
+.yivic-post--has-thumb .yivic-lite-post__title {
+  font-size: 20px;
+}
+
+// ---------------------------------------
+// Case 2: Post without thumbnail
+// ---------------------------------------
+
+.yivic-post--no-thumb {
+  display: grid;
+  grid-template-columns: 1fr; // full-width content
+  row-gap: 8px;
+}
+
+// All text blocks span full width
+.yivic-post--no-thumb .yivic-lite-post__title,
+.yivic-post--no-thumb .yivic-lite-post__meta,
+.yivic-post--no-thumb .yivic-lite-post__excerpt {
+  grid-column: 1 / 2;
+}
+
+// Optional: keep title size consistent with has-thumb variant
+.yivic-post--no-thumb .yivic-lite-post__title {
+  font-size: 20px;
+}
