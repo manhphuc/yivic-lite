@@ -25,7 +25,10 @@
   "autoload": {
     "psr-4": {
       "Yivic\\YivicLite\\": "src/"
-    }
+    },
+    "exclude-from-classmap": [
+      "src/YivicLite_Theme_Autoloader.php"
+    ]
   },
   "config": {
     "optimize-autoloader": true,
