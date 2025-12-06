@@ -4,7 +4,6 @@
  *
  * Assumes global $post is set by $query->the_post() before rendering.
  */
-
 defined( 'ABSPATH' ) || exit;
 
 // Read Customizer options for archive card behaviour.

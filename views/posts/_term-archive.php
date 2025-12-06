@@ -44,11 +44,13 @@ $description_class = $description_class ?? $section_class . '__description';
 $list_class        = $list_class ?? $section_class . '__list';
 $empty_class       = $empty_class ?? $section_class . '__empty';
 
-$title_fallback = $title_fallback ?? __('Archives', 'yivic-lite');
-$empty_text     = $empty_text ?? __('No posts found.', 'yivic-lite');
+$title_fallback = $title_fallback ?? __( 'Archives', 'yivic-lite' );
+$empty_text     = $empty_text ?? __( 'No posts found.', 'yivic-lite' );
 ?>
     <section class="<?php echo esc_attr( $section_class ); ?>">
         <header class="<?php echo esc_attr( $header_class ); ?>">
+            <?php echo YivicLite_WP_Theme::view()->render( 'views/partials/breadcrumb' ); ?>
+
             <h1 class="<?php echo esc_attr( $title_class ); ?>">
                 <?php
                 if ( $term_name ) {
@@ -58,22 +60,29 @@ $empty_text     = $empty_text ?? __('No posts found.', 'yivic-lite');
                 }
                 ?>
             </h1>
+
             <?php if ( ! empty( $term_description ) ) : ?>
                 <div class="<?php echo esc_attr( $description_class ); ?>">
-                    <?php echo wp_kses_post( wpautop( $term_description ) ); ?>
+                    <?php
+                    // term_description() already contains paragraph markup,
+                    // so we only need to run wp_kses_post() for safety.
+                    echo wp_kses_post( $term_description );
+                    ?>
                 </div>
             <?php endif; ?>
         </header>
+
         <div class="<?php echo esc_attr( $list_class ); ?>">
             <?php if ( $query->have_posts() ) : ?>
                 <?php while ( $query->have_posts() ) : $query->the_post(); ?>
                     <?php echo YivicLite_WP_Theme::view()->render( 'views/posts/_post-item' ); ?>
                 <?php endwhile; ?>
+
                 <?php echo YivicLite_WP_Theme::view()->render(
-                    'views/partials/pagination/_pagination',
-                    [
-                        'query' => $query,
-                    ]
+                        'views/partials/pagination/_pagination',
+                        [
+                                'query' => $query,
+                        ]
                 ); ?>
             <?php else : ?>
                 <p class="<?php echo esc_attr( $empty_class ); ?>">

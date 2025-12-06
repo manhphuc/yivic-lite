@@ -23,6 +23,9 @@ if ( $query->have_posts() ) :
         $query->the_post();
         ?>
         <?php $classes = 'yivic-lite-post yivic-lite-post--single'; ?>
+
+        <?php echo YivicLite_WP_Theme::view()->render( 'views/partials/breadcrumb' ); ?>
+
         <article id="post-<?php the_ID(); ?>" <?php post_class( $classes ); ?> >
             <?php echo YivicLite_WP_Theme::view()->render( 'views/single/_single-header' ); ?>
             <?php echo YivicLite_WP_Theme::view()->render( 'views/single/_single-content' ); ?>

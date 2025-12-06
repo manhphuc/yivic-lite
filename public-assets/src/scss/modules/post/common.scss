@@ -139,3 +139,20 @@
   line-height: 1.6;
   color: $yivic-post-text-color;
 }
+// ---------------------------------------
+// Commons
+// ---------------------------------------
+.yivic-lite-category-archive__header, .yivic-lite-date-archive__header, .yivic-lite-author-archive__header, .yivic-lite-tag-archive__header, .yivic-lite-search__header {
+  margin-bottom: 18px;
+}
+
+.yivic-lite-category-archive__title, .yivic-lite-date-archive__title, .yivic-lite-author-archive__title, .yivic-lite-tag-archive__title, .yivic-lite-search__title {
+  margin: 0 0 4px;
+}
+
+.yivic-lite-category-archive__description {
+  margin: 4px 0 16px;
+  font-size: 14px;
+  line-height: 1.6;
+  color: $yivic-post-meta-color;
+}
