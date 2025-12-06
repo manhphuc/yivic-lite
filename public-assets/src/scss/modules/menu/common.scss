@@ -367,4 +367,20 @@
       z-index: 11;
     }
   }
+
+  /* Primary menu: highlight current/active item */
+  #yivic-lite-primary-menu .current-menu-item > a,
+  #yivic-lite-primary-menu .current_page_item > a,
+  #yivic-lite-primary-menu .current-menu-parent > a,
+  #yivic-lite-primary-menu .current-menu-ancestor > a,
+  #yivic-lite-primary-menu a[aria-current="page"] {
+    color: #d1ff68;
+    font-weight: 600;
+  }
+
+  /* Optionally: hover state */
+  #yivic-lite-primary-menu > li > a:hover,
+  #yivic-lite-primary-menu > li > a:focus {
+    color: #d1ff68;
+  }
 }
