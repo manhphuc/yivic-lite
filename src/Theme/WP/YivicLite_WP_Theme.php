@@ -10,6 +10,7 @@ use Yivic\YivicLite\Theme\Traits\ConfigTrait;
 use Yivic\YivicLite\Theme\Traits\WPAttributeTrait;
 use Yivic\YivicLite\Theme\Services\ViewService;
 use Yivic\YivicLite\Theme\Interfaces\WPThemeInterface;
+use Yivic\YivicLite\Theme\Customizer\CustomizerManager;
 
 /**
  * Core theme kernel for Yivic Lite.
@@ -147,6 +148,7 @@ class YivicLite_WP_Theme extends Container implements WPThemeInterface {
         add_filter( 'walker_nav_menu_start_el', [ $this, 'yivicLiteThemeNavDescription' ] , 10, 4 );
     }
 
+
     /**
      * Setup general theme features.
      */
@@ -210,6 +212,16 @@ class YivicLite_WP_Theme extends Container implements WPThemeInterface {
                 'footer'  => __( 'Footer Menu', 'yivic-lite' ),
             ]
         );
+
+
+        // Initialize Customizer layer.
+        if ( class_exists( CustomizerManager::class ) ) {
+            CustomizerManager::instance()->init();
+        } else {
+            // Optional: debug in log
+             error_log( 'CustomizerManager class not found' );
+        }
+
     }
 
     /**

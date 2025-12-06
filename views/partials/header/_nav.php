@@ -1,5 +1,6 @@
+<?php $header_bg = $header_bg ?? '#313b45'; ?>
 <!-- Off–canvas menu / mobile + desktop menu wrapper -->
-<div class="yivic-lite-header__links nav-links" id="yivicMobileMenu">
+<div class="yivic-lite-header__links nav-links" id="yivicMobileMenu" style="background: <?php echo esc_attr( $header_bg ); ?>;">
     <div class="yivic-lite-header__sidebar-logo sidebar-logo">
         <span class="yivic-lite-header__logo-name logo-name">
             <?php bloginfo( 'name' ); ?>
