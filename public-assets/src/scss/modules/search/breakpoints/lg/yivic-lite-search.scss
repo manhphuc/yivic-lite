@@ -1,0 +1,22 @@
+/* ============================================================
+   Search Results – Desktop Enhancements (LG breakpoint)
+   Mobile styles are already defined above.
+============================================================ */
+
+/* Wider container */
+.yivic-lite-search {
+  max-width: 840px;
+  padding: 24px;
+}
+
+/* Slightly bigger empty message */
+.yivic-lite-search__empty {
+  padding: 16px 18px;
+  font-size: 16px;
+}
+
+/* Input spacing & readability */
+.yivic-lite-search-form__field {
+  font-size: 16px;
+  padding: 14px 16px;
+}
