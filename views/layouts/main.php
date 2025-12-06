@@ -25,8 +25,8 @@ $layout = YivicLiteHelper::getLayoutColumns(); ?>
             <?php if ( $layout['has_sidebar'] ) : ?>
                 <!-- Sidebar column (only rendered when enabled in Customizer) -->
                 <aside class="<?php echo esc_attr( $layout['sidebar'] ); ?>">
-                    <?php if ( is_active_sidebar( 'sidebar-1' ) ) {
-                        dynamic_sidebar( 'sidebar-1' );
+                    <?php if ( is_active_sidebar( 'yivic-lite-sidebar-1' ) ) {
+                        dynamic_sidebar( 'yivic-lite-sidebar-1' );
                     } else {
                         echo \Yivic\YivicLite\Theme\WP\YivicLite_WP_Theme::view()
                                 ->render( 'views/partials/sidebar' );
