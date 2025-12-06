@@ -5,10 +5,13 @@
 
 ## Description
 
-- **Yivic Lite** is a clean, lightweight, and modern WordPress theme designed for blogs and content-focused websites.
-- Built following WordPress coding standards, it includes no custom frameworks or page builders — ensuring maximum speed, compatibility, and long-term stability.
-- Featuring clean typography, responsive layout, and full block-editor (Gutenberg) support, Yivic Lite is ideal for bloggers, writers, and simple business pages.
-- You can view installation & usage instructions here:  
+Yivic Lite is a clean and lightweight classic WordPress theme designed for readability and simple layout structure.  
+It follows modern HTML5 standards, provides flexible templates, and includes essential Customizer options for layout, colors, and content display.
+
+With responsive design, clear typography, and support for core WordPress features such as custom logo, menus, and featured images,  
+Yivic Lite is an excellent choice for blogs, personal websites, and content-focused projects.
+
+👉 See full installation and usage instructions in the documentation:   
   👉 [Theme Documentation](./docs/readme.md)
 
 ## Features
