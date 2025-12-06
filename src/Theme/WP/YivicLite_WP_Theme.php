@@ -231,7 +231,7 @@ class YivicLite_WP_Theme extends Container implements WPThemeInterface {
         register_sidebar(
             [
                 'name'          => __( 'Primary Sidebar', 'yivic-lite' ),
-                'id'            => 'sidebar-1',
+                'id'            => 'yivic-lite-sidebar-1',
                 'description'   => __( 'Main sidebar area.', 'yivic-lite' ),
                 'before_widget' => '<section id="%1$s" class="widget %2$s">',
                 'after_widget'  => '</section>',
