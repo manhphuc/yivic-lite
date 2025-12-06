@@ -1,0 +1,141 @@
+// =======================================
+// Mobile-first Post List Layout
+// Block: .yivic-post
+// Elements: __thumbnail, __title, __meta, __excerpt
+// Description: Vertical stacked layout on mobile.
+// =======================================
+
+.yivic-post {
+  background: #fff;
+  margin: 10px 0;
+  padding: 10px;
+  border-radius: 5px;
+
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+
+  //border-bottom: 1px solid $yivic-post-border-color;
+
+  &:last-child {
+    border-bottom: none;
+  }
+}
+
+// ---------------------------------------
+// Thumbnail (full width on mobile)
+// ---------------------------------------
+
+.yivic-lite-post__thumbnail {
+  width: 100%;
+  min-height: $yivic-post-thumb-height;
+
+  background: $yivic-post-thumb-bg;
+  border-radius: 5px;
+  overflow: hidden;
+
+  a {
+    display: block;
+    width: 100%;
+    height: 100%;
+  }
+
+  img {
+    width: 100%;
+    height: 100%;
+    display: block;
+    object-fit: cover; // Keeps a clean cropped appearance
+  }
+}
+
+// ---------------------------------------
+// Title
+// ---------------------------------------
+
+.yivic-lite-post__title {
+  margin: 0 0 6px;
+  font-size: 18px;
+  line-height: 1.4;
+  font-weight: 700;
+  color: $yivic-post-title-color;
+
+  a {
+    color: inherit;
+    text-decoration: none;
+    @include yivic-transition(color, $yivic-header-transition-fast);
+
+    &:hover,
+    &:focus {
+      text-decoration: underline;
+    }
+  }
+}
+
+// ---------------------------------------
+// Meta Row (author avatar + category + date)
+// ---------------------------------------
+
+.yivic-lite-post__meta {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+
+  margin-bottom: 6px;
+  font-size: 12px;
+  color: $yivic-post-meta-color;
+}
+
+// Author avatar
+.yivic-lite-post__meta-avatar {
+  @include yivic-flex-center(true);
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  overflow: hidden;
+  flex-shrink: 0;
+
+  .yivic-lite-post__meta-avatar-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    border-radius: 50%;
+  }
+}
+
+// Category badge
+.yivic-lite-post__meta-category {
+  padding: 5px 10px;
+  border-radius: 3px;
+
+  font-size: 12px;
+  letter-spacing: .1em;
+
+  background-color: $yivic-post-category-bg;
+  color: #fff;
+  font-weight: 600;
+  text-decoration: none;
+
+  @include yivic-transition(background-color, $yivic-header-transition-fast);
+
+  &:hover,
+  &:focus {
+    background-color: darken($yivic-post-category-bg, 6%);
+  }
+}
+
+// Date
+.yivic-lite-post__meta-date {
+  color: $yivic-post-meta-color;
+  font-size: 12px;
+}
+
+// ---------------------------------------
+// Excerpt
+// ---------------------------------------
+
+.yivic-lite-post__excerpt {
+  font-size: 14px;
+  line-height: 1.6;
+  color: $yivic-post-text-color;
+}

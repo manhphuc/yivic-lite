@@ -1,0 +1,316 @@
+// =======================================
+// Single post layout – Yivic Lite
+// Block: .yivic-lite-post
+// Modifier: .yivic-lite-post--single
+// =======================================
+
+.yivic-lite-post--single {
+  .yivic-lite-post__meta {
+    a {
+      color: $yivic-meta-current-color;
+      text-decoration: underline;
+    }
+  }
+  // Reuse the shared single-card container
+  @extend %yivic-single-card;
+}
+
+// ---------------------------------------
+// Header (thumbnail + title + meta)
+// ---------------------------------------
+
+.yivic-lite-post--single .yivic-lite-post__header {
+  margin-bottom: 24px;
+}
+
+.yivic-lite-post--single .yivic-lite-post__thumbnail--single {
+  width: 100%;
+  margin: 0 0 20px;
+  border-radius: 6px;
+  overflow: hidden;
+  border: 1px solid $yivic-post-thumb-border;
+  background: $yivic-post-thumb-bg;
+
+  img {
+    display: block;
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+  }
+}
+
+.yivic-lite-post--single .yivic-lite-post__title {
+  margin: 0 0 12px;
+  font-size: 28px;
+  line-height: 1.3;
+  font-weight: 700;
+  color: $yivic-post-title-color;
+}
+
+// Meta line: date + author
+.yivic-lite-post--single .yivic-lite-post__meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 4px 16px;
+  margin-bottom: 8px;
+  font-size: 13px;
+  color: $yivic-post-meta-color;
+}
+
+.yivic-lite-post--single .yivic-lite-post__meta-item {
+  position: relative;
+  padding-left: 0;
+}
+
+// Optional: add a dot separator for items after the first
+.yivic-lite-post--single .yivic-lite-post__meta-item + .yivic-lite-post__meta-item {
+  padding-left: 12px;
+
+  &::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 50%;
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    background: $yivic-post-meta-color;
+    transform: translateY(-50%);
+  }
+}
+
+// ---------------------------------------
+// Content area (the_content / blocks)
+// ---------------------------------------
+
+.yivic-lite-post--single .yivic-lite-post__content {
+  margin-top: 12px;
+
+  // Paragraphs
+  p {
+    margin: 0 0 1.1em;
+  }
+
+  // Headings
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    margin: 1.6em 0 0.75em;
+    font-weight: 700;
+    color: $yivic-post-title-color;
+  }
+
+  h2 { font-size: 24px; }
+  h3 { font-size: 20px; }
+  h4 { font-size: 18px; }
+
+  // Lists
+  ul,
+  ol {
+    margin: 0 0 1.1em 1.4em;
+    padding: 0;
+  }
+
+  li {
+    margin-bottom: 0.3em;
+  }
+
+  // Blockquotes
+  blockquote {
+    margin: 1.5em 0;
+    padding: 0.75em 1.25em;
+    border-left: 3px solid $yivic-header-bg;
+    background: rgba(0, 0, 0, 0.02);
+    font-style: italic;
+  }
+
+  // Images inside content
+  img {
+    max-width: 100%;
+    height: auto;
+  }
+
+  // Captions
+  .wp-caption {
+    max-width: 100%;
+    margin: 1.25em 0;
+    text-align: center;
+
+    img {
+      margin: 0 auto;
+    }
+
+    .wp-caption-text {
+      margin-top: 0.5em;
+      font-size: 13px;
+      color: $yivic-post-meta-color;
+    }
+  }
+
+  // Code blocks
+  pre,
+  code {
+    font-family: Menlo, Monaco, Consolas, "Courier New", monospace;
+  }
+
+  pre {
+    padding: 12px 16px;
+    background: #f5f5f7;
+    border-radius: 4px;
+    overflow: auto;
+    font-size: 14px;
+  }
+
+  code {
+    padding: 0 3px;
+    background: #f5f5f7;
+    border-radius: 3px;
+  }
+}
+
+// ---------------------------------------
+// Paginated post links (<!--nextpage-->)
+// ---------------------------------------
+
+.yivic-lite-post--single .yivic-lite-post__pages {
+  margin: 24px 0 0;
+  font-size: 14px;
+
+  .page-links-title {
+    margin-right: 8px;
+    font-weight: 600;
+  }
+
+  a,
+  span {
+    display: inline-block;
+    margin-right: 6px;
+    padding: 4px 10px;
+    border-radius: 999px;
+    border: 1px solid $yivic-post-border-color;
+  }
+
+  a {
+    text-decoration: none;
+    color: $yivic-post-title-color;
+    @include yivic-transition(background-color);
+
+    &:hover,
+    &:focus {
+      background: $yivic-header-bg;
+      color: #fff;
+    }
+  }
+
+  .current {
+    background: $yivic-header-bg;
+    border-color: $yivic-header-bg;
+    color: #fff;
+  }
+}
+
+// ---------------------------------------
+// Footer: categories & tags
+// ---------------------------------------
+
+.yivic-lite-post--single .yivic-lite-post__footer {
+  margin-top: 32px;
+  padding-top: 20px;
+  border-top: 1px solid $yivic-post-border-color;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px 24px;
+}
+
+.yivic-lite-post--single .yivic-lite-post__categories,
+.yivic-lite-post--single .yivic-lite-post__tags {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px;
+}
+
+.yivic-lite-post--single .yivic-lite-post__label {
+  font-size: 13px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: $yivic-post-meta-color;
+}
+
+.yivic-lite-post--single .yivic-lite-post__value a {
+  display: inline-block;
+  margin-right: 4px;
+  padding: 3px 6px;
+  border-radius: 3px;
+  background: $yivic-post-chip-bg;
+  color: $yivic-post-chip-color;
+  font-size: 13px;
+  text-decoration: none;
+  @include yivic-transition(background-color);
+
+  &:hover,
+  &:focus {
+    background: $yivic-header-bg;
+    color: #fff;
+  }
+}
+
+/* ============================================================
+   Post Navigation – Mobile First Styles
+   This version applies to ALL screens by default.
+   Desktop overrides will come later.
+   Block: .yivic-lite-post-nav
+============================================================ */
+
+/* Wrapper block for previous/next navigation */
+.yivic-lite-post-nav {
+  margin: 40px 0 0;
+  padding: 20px 0;
+  border-top: 1px solid rgba(0,0,0,0.08);
+}
+
+/* Navigation container generated by WordPress */
+.yivic-lite-post-nav .nav-links {
+  display: flex;
+  flex-direction: column;      /* Mobile: items stack vertically */
+  gap: 14px;                   /* Space between previous / next */
+}
+
+/* Individual navigation card */
+.yivic-lite-post-nav a {
+  display: block;
+  width: 100%;
+  background: #ffffff;
+  padding: 16px 18px;
+  border-radius: 10px;
+  border: 1px solid rgba(0,0,0,0.06);
+  color: $yivic-post-title-color;
+  text-decoration: none;
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 1.4;
+
+  /* Smooth hover highlight */
+  transition: background-color 0.25s ease, border-color 0.25s ease, color 0.25s ease;
+
+  &:hover,
+  &:focus {
+    background-color: $yivic-header-bg;
+    border-color: $yivic-header-bg;
+    color: #ffffff;
+  }
+}
+
+/* Add arrow icon to previous link */
+.yivic-lite-post-nav .nav-previous a::before {
+  content: "← ";
+}
+
+/* Add arrow icon to next link */
+.yivic-lite-post-nav .nav-next a::after {
+  content: " →";
+}

@@ -1,0 +1,39 @@
+// Example: slightly larger content width on lg
+.yivic-lite-page--single {
+  max-width: 840px;
+}
+
+// Prev
+.yivic-lite-page-nav {
+  margin-top: 48px;
+  padding-top: 28px;
+}
+
+/* Horizontal layout */
+.yivic-lite-page-nav .nav-links {
+  flex-direction: row;            /* Desktop: side-by-side */
+  justify-content: space-between; /* Push prev/next to edges */
+  align-items: stretch;
+  gap: 20px;
+}
+
+/* Buttons become equal-width panels */
+.yivic-lite-page-nav .nav-previous,
+.yivic-lite-page-nav .nav-next {
+  flex: 1;                        /* each takes 50% width */
+}
+
+.yivic-lite-page-nav a {
+  padding: 18px 22px;
+  font-size: 17px;
+  border-radius: 12px;
+}
+
+/* Optional: align text left/right for better symmetry */
+.yivic-lite-page-nav .nav-previous a {
+  text-align: left;
+}
+
+.yivic-lite-page-nav .nav-next a {
+  text-align: right;
+}

@@ -27,27 +27,18 @@
   flex-direction: column;
 }
 
-// ================================
-// Layout
-// ================================
-.yivic-lite-layout {
-  flex: 1;
-
-  &__container {
-    display: flex;
-    gap: 2rem;
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 2rem 1rem;
-  }
-
-  &__main {
-    flex: 1 1 auto;
-  }
-
-  &__sidebar {
-    flex: 0 0 300px;
-  }
+// =======================================
+// Shared single content card
+// Used by single post and single page
+// =======================================
+%yivic-single-card {
+  margin: 0 auto 23px;
+  padding: 16px;
+  border-radius: 6px;
+  background: #ffffff;
+  color: $yivic-post-text-color;
+  font-size: 16px;
+  line-height: 1.7;
 }
 
 // ================================
@@ -59,6 +50,41 @@
 // Menu
 // ================================
 @import "modules/menu/yivic-lite-main-menu";
+
+// ================================
+// Post
+// ================================
+@import "modules/post/yivic-lite-post";
+
+// ================================
+// Pagination
+// ================================
+@import "modules/pagination/yivic-lite-pagination";
+
+// ================================
+// Sidebar
+// ================================
+@import "modules/sidebar/yivic-lite-sidebar";
+
+// ================================
+// Single Post
+// ================================
+@import "modules/single/yivic-lite-single";
+
+// ================================
+// Single Page
+// ================================
+@import "modules/page/yivic-lite-page";
+
+// ================================
+// Comment
+// ================================
+@import "modules/comment/yivic-lite-comment";
+
+// ================================
+// 404 Page
+// ================================
+@import "modules/404/yivic-lite-404";
 
 // ================================
 // Footer

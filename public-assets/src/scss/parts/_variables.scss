@@ -21,6 +21,7 @@ $yivic-header-text-color:          #fff;
 $yivic-header-submenu-border:      #ffffff1a;
 $yivic-header-submenu-hover-bg:    rgba(255, 255, 255, 0.08);
 $yivic-header-arrow-bg:            rgba(255, 255, 255, 0.1);
+$yivic-meta-current-color:         #686868;
 
 // Z-index & transition
 $yivic-header-z-offcanvas:         1000;
@@ -31,3 +32,29 @@ $yivic-header-transition-medium:   0.4s ease;
 $yivic-header-arrow-size:          20px;
 $yivic-header-arrow-box-size:      40px;
 $yivic-header-arrow-gap-x:         6px;
+
+// =======================================
+// Yivic Lite – Post list / Single variables
+// =======================================
+
+// Layout for list items
+$yivic-post-thumb-width:   260px;    // thumbnail width on desktop
+$yivic-post-thumb-height:  180px;    // min-height for thumbnail box
+$yivic-post-gap-x:         24px;     // gap between thumbnail and content
+
+// Borders & backgrounds
+$yivic-post-border-color:  #ddd;  // article bottom border
+$yivic-post-thumb-border:  #b48ad7;  // thumbnail border
+$yivic-post-thumb-bg:      #f6f4fb;  // thumbnail placeholder bg
+
+// Typography colors
+$yivic-post-title-color:   #222222;
+$yivic-post-text-color:    #555555;
+$yivic-post-meta-color:    #999999;
+
+// Category badge (list view)
+$yivic-post-category-bg:   #6d3fd3;  // purple badge background
+
+// Chips (single post meta / tags)
+$yivic-post-chip-bg:       #f0e5ff;
+$yivic-post-chip-color:    #4b2faa;

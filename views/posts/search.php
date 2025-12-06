@@ -6,6 +6,7 @@
  *
  * @var WP_Query|null $query
  */
+use Yivic\YivicLite\Theme\WP\YivicLite_WP_Theme;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -18,7 +19,6 @@ if ( ! isset( $query ) || ! $query instanceof WP_Query ) {
 // Capture search term once for reuse.
 $searchTerm = get_search_query();
 ?>
-
     <header class="yivic-lite-search__header">
         <h1 class="yivic-lite-search__title">
             <?php
@@ -33,7 +33,6 @@ $searchTerm = get_search_query();
             }
             ?>
         </h1>
-
         <?php if ( $searchTerm ) : ?>
             <p class="yivic-lite-search__subtitle">
                 <?php
@@ -46,51 +45,21 @@ $searchTerm = get_search_query();
             </p>
         <?php endif; ?>
     </header>
-
     <div class="yivic-lite-search__list">
         <?php if ( $query->have_posts() ) : ?>
-
             <?php while ( $query->have_posts() ) : $query->the_post(); ?>
-                <article id="post-<?php the_ID(); ?>" <?php post_class( 'yivic-lite-search__item' ); ?>>
-                    <h2 class="yivic-lite-search__item-title">
-                        <a href="<?php the_permalink(); ?>">
-                            <?php the_title(); ?>
-                        </a>
-                    </h2>
-
-                    <div class="yivic-lite-search__item-meta">
-					<span class="yivic-lite-search__item-date">
-						<?php echo esc_html( get_the_date() ); ?>
-					</span>
-                    </div>
-
-                    <div class="yivic-lite-search__item-excerpt">
-                        <?php the_excerpt(); ?>
-                    </div>
-                </article>
+                <?php echo YivicLite_WP_Theme::view()->render( 'views/posts/_post-item' ); ?>
             <?php endwhile; ?>
-
-            <div class="yivic-lite-search__pagination">
-                <?php
-                the_posts_pagination(
-                    [
-                        'prev_text' => esc_html__( 'Previous', 'yivic-lite' ),
-                        'next_text' => esc_html__( 'Next', 'yivic-lite' ),
-                    ]
-                );
-                ?>
-            </div>
-
+            <?php echo YivicLite_WP_Theme::view()->render('views/partials/pagination/_pagination', [
+                'query' => $query
+            ] ); ?>
         <?php else : ?>
-
             <p class="yivic-lite-search__empty">
                 <?php esc_html_e( 'No results found. Try a different search term.', 'yivic-lite' ); ?>
             </p>
-
             <div class="yivic-lite-search__form">
                 <?php get_search_form(); ?>
             </div>
-
         <?php endif; ?>
     </div>
 
