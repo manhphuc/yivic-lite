@@ -2,7 +2,7 @@
 /**
  * Theme Name:   Yivic Lite
  * Theme URI:    https://github.com/manhphuc/yivic-lite
- * Description:  Lightweight Laravel-style WordPress theme using DI container & service architecture.
+ * Description:  A clean and lightweight classic theme focused on readability and simple layout structure. Designed with modern HTML5 standards, customizer options, and flexible templates for blogs and personal sites.
  * Author:       Phuc Nguyen
  * Author URI:   https://github.com/manhphuc
  * Version:      1.0.3

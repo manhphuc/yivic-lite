@@ -15,7 +15,7 @@
     </div>
 
     <?php wp_nav_menu( [
-        'theme_location' => 'primary',
+        'theme_location' => 'yivic-lite-primary',
         'container'      => 'div',
         'container_class'=> 'yivic-lite-header__menu-container menu-categories-container',
         'menu_class'     => 'yivic-lite-header__menu links main-nav dropdown-menu sf-menu',

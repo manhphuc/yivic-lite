@@ -19,7 +19,7 @@ $layout = YivicLiteHelper::getLayoutColumns(); ?>
     <div class="yivic-lite-layout__container grid wide">
         <div class="yivic-lite-layout__row row">
             <!-- Main content column -->
-            <main class="<?php echo esc_attr( $layout['main'] ); ?>">
+            <main id="primary" class="<?php echo esc_attr( $layout['main'] ); ?>">
                 <?php echo $content ?? ''; ?>
             </main>
             <?php if ( $layout['has_sidebar'] ) : ?>

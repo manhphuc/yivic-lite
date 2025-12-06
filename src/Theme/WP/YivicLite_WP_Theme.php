@@ -208,8 +208,8 @@ class YivicLite_WP_Theme extends Container implements WPThemeInterface {
         // is fully compatible with the Menus screen.
         register_nav_menus(
             [
-                'primary' => __( 'Primary Menu', 'yivic-lite' ),
-                'footer'  => __( 'Footer Menu', 'yivic-lite' ),
+                'yivic-lite-primary' => __( 'Primary Menu', 'yivic-lite' ),
+                'yivic-lite-footer'  => __( 'Footer Menu', 'yivic-lite' ),
             ]
         );
 
@@ -319,7 +319,7 @@ class YivicLite_WP_Theme extends Container implements WPThemeInterface {
      * Add dropdown arrow to menu items that have children (all depths).
      */
     public function yivicLiteThemeNavDescription( $item_output, $item, $depth, $args ) {
-        if ( isset( $args->theme_location ) && 'primary' === $args->theme_location ) {
+        if ( isset( $args->theme_location ) && 'yivic-lite-primary' === $args->theme_location ) {
 
             $classes = isset( $item->classes ) ? (array) $item->classes : [];
 

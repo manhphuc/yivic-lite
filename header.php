@@ -13,6 +13,8 @@ use Yivic\YivicLite\Theme\WP\YivicLite_WP_Theme;
 
 <body <?php body_class( 'yivic-lite-page' ); ?>>
 <?php wp_body_open(); ?>
-
+<a class="skip-link screen-reader-text" href="#primary">
+    <?php esc_html_e( 'Skip to content', 'yivic-lite' ); ?>
+</a>
 <div class="yivic-lite-page__wrap">
     <?php echo YivicLite_WP_Theme::view()->render( 'views/partials/header' ); ?>
