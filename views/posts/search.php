@@ -20,6 +20,7 @@ if ( ! isset( $query ) || ! $query instanceof WP_Query ) {
 $searchTerm = get_search_query();
 ?>
     <header class="yivic-lite-search__header">
+        <?php echo YivicLite_WP_Theme::view()->render( 'views/partials/breadcrumb' ); ?>
         <h1 class="yivic-lite-search__title">
             <?php
             if ( $searchTerm ) {

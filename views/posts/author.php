@@ -37,6 +37,7 @@ if ( $author instanceof WP_User ) {
 ?>
     <section class="yivic-lite-author-archive">
         <header class="yivic-lite-author-archive__header">
+            <?php echo YivicLite_WP_Theme::view()->render( 'views/partials/breadcrumb' ); ?>
             <h1 class="yivic-lite-author-archive__title">
                 <?php
                 if ( $author_displayname ) {

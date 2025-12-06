@@ -48,6 +48,7 @@ if ( is_day() ) {
 ?>
     <section class="yivic-lite-date-archive">
         <header class="yivic-lite-date-archive__header">
+            <?php echo YivicLite_WP_Theme::view()->render( 'views/partials/breadcrumb' ); ?>
             <h1 class="yivic-lite-date-archive__title">
                 <?php echo $archive_title; ?>
             </h1>

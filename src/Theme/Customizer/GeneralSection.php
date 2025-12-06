@@ -316,6 +316,28 @@ class GeneralSection {
                 'type'        => 'checkbox',
             ]
         );
+
+        /**
+         * 12. Toggle: Show breadcrumb trail.
+         */
+        $this->customizer->add_setting(
+            'yivic_lite_show_breadcrumb',
+            [
+                'default'           => true,
+                'sanitize_callback' => [ $this, 'sanitize_checkbox' ],
+                'transport'         => 'refresh',
+            ]
+        );
+
+        $this->customizer->add_control(
+            'yivic_lite_show_breadcrumb',
+            [
+                'label'       => __( 'Show breadcrumb navigation', 'yivic-lite' ),
+                'description' => __( 'Disable this to hide the breadcrumb trail above content.', 'yivic-lite' ),
+                'section'     => 'yivic_lite_general_section',
+                'type'        => 'checkbox',
+            ]
+        );
     }
 
     // ---------------------------------------------------------------------
