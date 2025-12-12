@@ -3,10 +3,20 @@
     <button
             class="yivic-lite-header__search-icon yivicSearch-icon yivicSearch"
             type="button"
-            aria-label="<?php esc_attr_e( 'Search', 'yivic-lite' ); ?>"
+            aria-label="<?php echo esc_attr_e( 'Search', 'yivic-lite' ); ?>"
+            aria-haspopup="dialog"
+            aria-controls="yivic-lite-search-panel"
+            aria-expanded="false"
     ></button>
 
-    <div class="yivic-lite-header__search-input input-box">
+    <div
+            id="yivic-lite-search-panel"
+            class="yivic-lite-header__search-input input-box"
+            role="dialog"
+            aria-modal="true"
+            aria-hidden="true"
+            hidden
+    >
         <?php get_search_form(); ?>
     </div>
 </div>
