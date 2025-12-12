@@ -4,7 +4,6 @@
 // =====================================
 
 .yivic-lite-header {
-
   // -----------------------------------
   // Main nav wrapper (sticky bar)
   // -----------------------------------
@@ -18,9 +17,9 @@
   // -----------------------------------
   &__nav {
     position: relative;
-    min-height: $height_nav;        // keep legacy var for safety
     width: 100%;
     max-width: 100%;
+    min-height: $height_nav; // keep legacy var for safety
     display: inline-block;
     text-align: center;
   }
@@ -32,26 +31,35 @@
     display: inline-block;
   }
 
-  // Force WP custom logo link to be flex so the image is centered vertically
-  &__logo .custom-logo-link {
-    @include yivic-flex-center();   // flex + center
-    height: 100%;
-  }
-
-  // Custom logo image (from WP core)
-  &__logo .custom-logo {
-    display: block;
-    max-height: $yivic-header-height;
-    width: auto;
-    height: auto;
-  }
-
-  // Logo container (fixed height, flex-center)
+  // Logo container (fixed height, center)
   &__logo {
     position: relative;
     height: $yivic-header-height;
-    @include yivic-flex-center();   // vertical + horizontal center
-    overflow: hidden;               // avoid overflow if the image is larger
+    overflow: hidden; // avoid overflow if the image is larger
+    @include yivic-flex-center(); // vertical + horizontal center
+
+    // Force WP custom logo link to be flex so the image is centered vertically
+    .custom-logo-link {
+      height: 100%;
+      @include yivic-flex-center();
+    }
+
+    // Custom logo image (from WP core)
+    .custom-logo {
+      display: block;
+      max-height: $yivic-header-height;
+      width: auto;
+      height: auto;
+    }
+
+    // Generic img inside logo (safety)
+    img {
+      max-height: $yivic-header-height;
+      max-width: $yivic-header-logo-max-width;
+      width: auto;
+      height: auto;
+      transform: translate(0);
+    }
   }
 
   // Text logo fallback (when there is no custom logo)
@@ -64,15 +72,6 @@
     font-weight: 600;
     text-decoration: none;
     color: $yivic-header-text-color;
-  }
-
-  // Generic img inside logo (safety)
-  &__logo img {
-    max-height: $yivic-header-height;
-    width: auto;
-    max-width: $yivic-header-logo-max-width;
-    height: auto;
-    transform: translate(0);
   }
 
   // Site title text
@@ -88,26 +87,27 @@
     float: left;
     width: $widthIconMenu;
     height: $yivic-header-height;
-    filter: $yivicColorIconWhite;
+    padding: 0;
     background: none;
     border: 0;
-    padding: 0;
     cursor: pointer;
+    filter: $yivicColorIconWhite;
   }
 
   &__toggle-icon {
+    display: block;
     width: 100%;
     height: $heightIconMenu;
-    display: block;
   }
 
   // -----------------------------------
-  // Off–canvas menu wrapper (mobile)
+  // Off-canvas menu wrapper (mobile)
   // -----------------------------------
   &__links {
     position: fixed;
     top: 0;
     left: -100%;
+    z-index: $yivic-header-z-offcanvas;
     width: 100%;
     height: 100%;
     display: block;
@@ -115,8 +115,7 @@
     background: $yivic-header-bg;
     line-height: $yivic-header-menu-line-height;
     box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
-    z-index: $yivic-header-z-offcanvas;
-    @include yivic-transition(left, 0.3s); // same as left 0.3s ease
+    @include yivic-transition(left, 0.3s);
 
     // State: menu is open (JS adds .yivic-lite-header__links--open)
     &--open {
@@ -125,7 +124,7 @@
   }
 
   // -----------------------------------
-  // Off–canvas sidebar header (mobile)
+  // Off-canvas sidebar header (mobile)
   // -----------------------------------
   &__sidebar-logo {
     display: flex;
@@ -142,9 +141,9 @@
     float: right;
     width: $widthIconMenu;
     height: $heightIconMenu;
+    padding: 0;
     background: none;
     border: 0;
-    padding: 0;
     cursor: pointer;
   }
 
@@ -163,15 +162,14 @@
     list-style: none;
     text-align: left;
 
-    // Every li inside menu
     li {
-      padding: 3px 0;
       position: relative;
       margin: 0;
+      padding: 3px 0;
       list-style: none;
     }
 
-    // Top-level link
+    // Top-level link (keep your original intent)
     > li > a {
       display: block;
       padding: 0;
@@ -192,29 +190,45 @@
         text-decoration: underline;
       }
     }
-  }
 
-  // -----------------------------------
-  // Sub-menu (all depths, mobile default)
-  // -----------------------------------
-  .yivic-lite-header__menu .sub-menu {
-    display: none;                          // hidden by default
-    margin: 0;
-    padding: 0 0 0 $yivic-header-submenu-padding-x;
-    list-style: none;
-  }
+    // -----------------------------------
+    // Sub-menu (all depths, mobile default)
+    // -----------------------------------
+    .sub-menu {
+      display: none; // hidden by default
+      margin: 0;
+      padding: 0 0 0 $yivic-header-submenu-padding-x;
+      list-style: none;
 
-  // Sub-menu link style
-  .yivic-lite-header__menu .sub-menu > li > a {
-    font-size: 15px;
-    font-weight: 500;
-    padding: 0;
-    color: $yivic-header-text-color;
-  }
+      > li > a {
+        padding: 0;
+        font-size: 15px;
+        font-weight: 500;
+        color: $yivic-header-text-color;
+      }
 
-  // Deeper levels (extra indent)
-  .yivic-lite-header__menu .sub-menu .sub-menu {
-    padding-left: $yivic-header-submenu-padding-x;
+      // Deeper levels (extra indent)
+      .sub-menu {
+        padding-left: $yivic-header-submenu-padding-x;
+      }
+    }
+
+    // -----------------------------------
+    // Open state for items with sub-menu
+    // (JS adds .yivic-lite-header__item--open on <li>)
+    // -----------------------------------
+    li.yivic-lite-header__item--open {
+      // Show direct child sub-menu
+      > .sub-menu {
+        display: block;
+      }
+
+      // Rotate its own arrow
+      > .yivic-lite-header__arrow,
+      > .yivic-arrow {
+        transform: rotate(180deg);
+      }
+    }
   }
 
   // -----------------------------------
@@ -226,38 +240,19 @@
     right: 0;
     width: $yivic-header-arrow-box-size;
     height: $yivic-header-arrow-box-size;
-    border: 0;
     padding: 0;
-    cursor: pointer;
     background: transparent;
+    border: 0;
     outline: none;
-    @include yivic-transition(transform, 0.2s); // smooth rotation
+    cursor: pointer;
+    @include yivic-transition(transform, 0.2s);
 
     // Sprite icon + background
     &.yivic-dropdownsIcon {
-      background:
-              $yivic-header-arrow-bg
-              url('./../../../../dist/img/yivic-lite-arrow-down.svg')
-              center center / $yivic-header-arrow-size $yivic-header-arrow-size
-              no-repeat;
-    }
-  }
-
-  // -----------------------------------
-  // Open state for items with sub-menu
-  // (JS adds .yivic-lite-header__item--open on <li>)
-  // -----------------------------------
-  .yivic-lite-header__menu li.yivic-lite-header__item--open {
-
-    // Show direct child sub-menu
-    > .sub-menu {
-      display: block;
-    }
-
-    // Rotate its own arrow
-    > .yivic-lite-header__arrow,
-    > .yivic-arrow {
-      transform: rotate(180deg);
+      background: $yivic-header-arrow-bg
+      url('./../../../../dist/img/yivic-lite-arrow-down.svg')
+      center center / $yivic-header-arrow-size $yivic-header-arrow-size
+      no-repeat;
     }
   }
 
@@ -278,12 +273,12 @@
     left: 0;
     width: $widthIconMenu;
     height: $heightIconMenu;
-    cursor: pointer;
-    @include yivic-transition(); // default all 0.3s ease
-    filter: $yivicColorIconWhite;
+    padding: 0;
     background: url('./../../../../dist/img/yivic-lite-search-icon.svg') 0 0 / 38px 38px no-repeat;
     border: 0;
-    padding: 0;
+    cursor: pointer;
+    filter: $yivicColorIconWhite;
+    @include yivic-transition();
 
     // Icon state: close button
     &--close,
@@ -295,16 +290,16 @@
   // Search input dropdown
   &__search-input {
     position: absolute;
-    right: calc(100% - 40px);
     top: 72px;
+    right: calc(100% - 40px);
     width: 300px;
     height: 60px;
+    display: none;
+    opacity: 0;
+    pointer-events: auto;
     background: $yivic-header-bg;
     border-radius: 6px;
-    pointer-events: auto;
-    @include yivic-transition(all, 0.4s); // same as before
-    opacity: 0;
-    display: none;
+    @include yivic-transition(all, 0.4s);
 
     &:before {
       content: '';
@@ -325,8 +320,8 @@
       height: 35px;
       padding: 0 15px;
       font-size: 16px;
-      border-radius: 4px;
       border: none;
+      border-radius: 4px;
       outline: none;
       transform: translate(-50%, -50%);
     }
@@ -339,8 +334,8 @@
   &__search--open {
     .yivic-lite-header__search-input,
     .input-box {
-      opacity: 1;
       display: block;
+      opacity: 1;
     }
   }
 
@@ -368,19 +363,36 @@
     }
   }
 
-  /* Primary menu: highlight current/active item */
-  #yivic-lite-primary-menu .current-menu-item > a,
-  #yivic-lite-primary-menu .current_page_item > a,
-  #yivic-lite-primary-menu .current-menu-parent > a,
-  #yivic-lite-primary-menu .current-menu-ancestor > a,
-  #yivic-lite-primary-menu a[aria-current="page"] {
-    color: #d1ff68;
-    font-weight: 600;
-  }
+  // -----------------------------------
+  // Primary menu: highlight current/active item
+  // -----------------------------------
+  #yivic-lite-primary-menu {
+    .current-menu-item > a,
+    .current_page_item > a,
+    .current-menu-parent > a,
+    .current-menu-ancestor > a,
+    a[aria-current='page'] {
+      color: #d1ff68;
+      font-weight: 600;
+    }
 
-  /* Optionally: hover state */
-  #yivic-lite-primary-menu > li > a:hover,
-  #yivic-lite-primary-menu > li > a:focus {
-    color: #d1ff68;
+    // Hover/focus state (top-level)
+    > li > a:hover,
+    > li > a:focus {
+      color: #d1ff68;
+    }
   }
+}
+
+// -----------------------------------
+// Focus-visible outlines (A11y)
+// -----------------------------------
+.yivic-lite-header__search-icon:focus-visible,
+.yivic-lite-header__menu a:focus-visible,
+.yivic-lite-header__arrow:focus-visible,
+#yivicMenuToggle:focus-visible,
+#yivicMobileMenu a:focus-visible,
+#yivicMobileMenu button:focus-visible {
+  outline: 2px solid #d1ff68;
+  outline-offset: 4px;
 }
