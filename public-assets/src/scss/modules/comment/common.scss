@@ -270,3 +270,26 @@
   font-size: 13px;
   color: $yivic-post-meta-color;
 }
+
+/* =======================================
+ * Comments: prevent pre overflow in nested layouts
+ * ======================================= */
+
+.yivic-lite-comments__body,
+.yivic-lite-comments__content {
+  min-width: 0;
+}
+
+.yivic-lite-comments__content pre {
+  max-width: 100%;
+  overflow-x: auto;
+  overflow-y: hidden;
+  -webkit-overflow-scrolling: touch;
+  overflow-wrap: normal;
+  word-break: normal;
+}
+
+.yivic-lite-comments__content pre code {
+  white-space: pre;
+}
+
