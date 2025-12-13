@@ -1,0 +1,21 @@
+/**
+ * Yivic Lite editor styles.
+ *
+ * This stylesheet is intentionally minimal.
+ * It exists to support `add_editor_style()` and can be
+ * extended over time to better match front-end typography
+ * inside the block editor.
+ */
+
+.editor-styles-wrapper {
+  // Base typography (match front-end defaults)
+  font-family: system-ui, -apple-system, 'Segoe UI', Roboto, Arial, sans-serif;
+  line-height: 1.7;
+
+  // Prevent media from overflowing the editor canvas
+  img,
+  video {
+    max-width: 100%;
+    height: auto;
+  }
+}
