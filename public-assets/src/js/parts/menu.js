@@ -565,22 +565,59 @@
     // - Adds body padding equal to header height to prevent jump
     // ==========================================================
     (function initStickyHeader() {
-        const stickyBar = $('#yivicSticky');
+        const stickyBar = document.getElementById('yivicSticky');
         if (!stickyBar) return;
 
-        const navTop = stickyBar.offsetTop;
+        const getAdminBarOffset = () => {
+            if (!document.body.classList.contains('admin-bar')) return 0;
+            return window.innerWidth <= 782 ? 46 : 32;
+        };
 
-        const handleScroll = () => {
-            if (window.scrollY >= navTop) {
-                document.body.style.paddingTop = stickyBar.offsetHeight + 'px';
-                document.body.classList.add('yivic-lite-header--fixed');
+        let startY = null;
+
+        const applyAdminOffset = () => {
+            const offset = getAdminBarOffset();
+            document.documentElement.style.setProperty('--yivic-adminbar-offset', offset + 'px');
+        };
+
+        const computeStartY = () => {
+            // vị trí top của stickyBar tính theo document
+            const rect = stickyBar.getBoundingClientRect();
+            startY = rect.top + window.scrollY;
+        };
+
+        const handle = () => {
+            if (startY === null) computeStartY();
+
+            if (window.scrollY >= startY) {
+                if (!document.body.classList.contains('yivic-lite-header--fixed')) {
+                    document.body.classList.add('yivic-lite-header--fixed');
+                    document.body.style.paddingTop = stickyBar.offsetHeight + 'px';
+                }
             } else {
-                document.body.style.paddingTop = '0';
-                document.body.classList.remove('yivic-lite-header--fixed');
+                if (document.body.classList.contains('yivic-lite-header--fixed')) {
+                    document.body.classList.remove('yivic-lite-header--fixed');
+                    document.body.style.paddingTop = '';
+                }
             }
         };
 
-        window.addEventListener('scroll', handleScroll, { passive: true });
+        applyAdminOffset();
+        computeStartY();
+        handle();
+
+        window.addEventListener('scroll', handle, { passive: true });
+        window.addEventListener('resize', () => {
+            applyAdminOffset();
+            computeStartY();
+            handle();
+        }, { passive: true });
+        
+        window.addEventListener('load', () => {
+            applyAdminOffset();
+            computeStartY();
+            handle();
+        });
     })();
 
     // =============================================================

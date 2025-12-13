@@ -10,6 +10,12 @@
   &__bar {
     background: $yivic-header-bg;
     height: $yivic-header-height;
+
+    // Fallback: sticky works even if JS fails
+    position: sticky;
+    top: var(--yivic-adminbar-offset, 0px);
+    z-index: 1000;
+    width: 100%;
   }
 
   // -----------------------------------
@@ -357,9 +363,11 @@
   &--fixed {
     #yivicSticky {
       position: fixed;
-      top: 0;
+      top: var(--yivic-adminbar-offset, 0);
+      left: 0;
+      right: 0;
       width: 100%;
-      z-index: 11;
+      z-index: 1000;
     }
   }
 
