@@ -15,6 +15,80 @@
 // Base main CSS global
 @import "parts/base";
 
+// =======================================
+// Layout safeguards (overflow + wrapping)
+// =======================================
+
+/* Prevent global horizontal scrolling on small screens. */
+html,
+body {
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
+/* Allow flex/grid children to shrink properly (prevents overflow). */
+.yivic-lite-layout,
+.yivic-lite-layout__inner,
+.yivic-lite-main,
+.yivic-lite-content,
+.yivic-lite-post,
+.yivic-lite-page,
+.yivic-lite-sidebar,
+.yivic-lite-footer {
+  min-width: 0;
+}
+
+/* Footer text safety (long strings). */
+.yivic-lite-footer {
+  overflow-wrap: break-word;
+  word-break: break-word;
+}
+
+/* Wrap long, unbroken titles/headings from Theme Unit Test data. */
+.yivic-lite-post__title,
+.yivic-lite-page__title,
+.yivic-lite-term-archive__title,
+.entry-title,
+.page-title,
+.widget-title,
+.wp-block-heading {
+  overflow-wrap: anywhere;
+  word-break: break-word; /* fallback */
+  hyphens: auto;
+}
+
+/* Breadcrumb/current item can also be extremely long. */
+.yivic-lite-breadcrumb,
+.yivic-lite-breadcrumb a,
+.yivic-lite-breadcrumb span,
+.breadcrumb,
+.breadcrumb a {
+  overflow-wrap: anywhere;
+  word-break: break-word;
+}
+
+/* Safety for common long text blocks. */
+.yivic-lite-post__content,
+.yivic-lite-page__content,
+.comment-content,
+.yivic-lite-comments__content,
+.widget,
+.textwidget {
+  overflow-wrap: break-word;
+  word-break: break-word;
+}
+
+/* Pre blocks: allow horizontal scrolling instead of overflowing the layout. */
+pre {
+  max-width: 100%;
+  overflow-x: auto;
+  overflow-y: hidden;
+  -webkit-overflow-scrolling: touch;
+}
+
+pre code {
+  white-space: pre;
+}
 
 // Home Main Sections
 
@@ -92,12 +166,12 @@
 @import "modules/search/yivic-lite-search";
 
 // ================================
-// Search
+// Breadcrumb
 // ================================
 @import "modules/breadcrumb/yivic-lite-breadcrumb";
 
 // ================================
-// Common
+// Accessibility helpers
 // ================================
 .screen-reader-text {
   position: absolute;
@@ -120,40 +194,28 @@
 }
 
 /* =============================================================
-   Accessibility: Content Links must be underlined (WP.org)
-   ---------------------------------------------------------
-   Requirement:
-   - Links inside readable content areas must not rely on color alone.
-   - Underlines must remain visible on hover/focus, too.
-   Scope:
-   - the_content(), the_excerpt()
-   - term descriptions
-   - comment content + comment form notes (logged-in-as)
-   - common sidebar widgets (archives, categories, recent posts/comments)
-   Exclusions:
-   - navigation/menu links
-   - button-like links
-   ============================================================= */
+ * Accessibility: Content links must be underlined (WP.org)
+ * -------------------------------------------------------------
+ * - Links inside readable content areas must not rely on color alone.
+ * - Underlines remain visible on hover/focus, too.
+ * Exclusions:
+ * - navigation/menu links
+ * - button-like links
+ * ============================================================= */
 
-/* -------------------------------------------------------------
-   0) Shared focus variables
-   ------------------------------------------------------------- */
+/* Shared accessibility variables (single source of truth). */
 :root {
   --yivic-focus-color: #3858e9;
   --yivic-focus-ring: 2px;
   --yivic-focus-offset: 2px;
 
-  /* Link underline tuning */
   --yivic-link-underline: max(1px, 0.08em);
   --yivic-link-underline-hover: max(2px, 0.15em);
   --yivic-link-underline-offset: 0.15em;
 }
 
-/* -------------------------------------------------------------
-   1) Readable content link targets
-   ------------------------------------------------------------- */
+/* Readable content link targets. */
 $yivic_content_link_scopes: (
-  /* Post/page content wrappers (theme + core fallbacks) */
         ".yivic-lite-post__content",
         ".yivic-lite-post__excerpt",
         ".yivic-lite-post__desc",
@@ -162,25 +224,17 @@ $yivic_content_link_scopes: (
         ".entry-summary",
         ".wp-block-post-content",
         ".wp-block-post-excerpt__excerpt",
-
-          /* Taxonomy/term descriptions */
         ".term-description",
         ".taxonomy-description",
-
-          /* Post meta/footer areas that contain text links */
         ".yivic-lite-post__footer",
         ".yivic-lite-post__meta",
         ".yivic-lite-post-nav",
-
-          /* Comments (content + form notes like logged-in-as) */
         ".comment-content",
         ".wp-block-comment-content",
         ".yivic-lite-comments__content",
         ".comment-respond",
         ".logged-in-as",
         ".comment-notes",
-
-          /* Sidebar & common widgets (classic + blocks) */
         ".yivic-lite-sidebar",
         ".widget",
         ".widget-area",
@@ -198,11 +252,7 @@ $yivic_content_link_scopes: (
         ".wp-block-page-list"
 );
 
-/* -------------------------------------------------------------
-   2) Apply underline to links inside those content scopes
-   Notes:
-   - We avoid :where() here (specificity = 0) to prevent overrides.
-   ------------------------------------------------------------- */
+/* Apply underlines to links within readable content areas. */
 @each $scope in $yivic_content_link_scopes {
   #{$scope} a {
     text-decoration: underline;
@@ -216,9 +266,7 @@ $yivic_content_link_scopes: (
   }
 }
 
-/* -------------------------------------------------------------
-   3) Exclusions: do NOT underline navigation/menu links
-   ------------------------------------------------------------- */
+/* Exclusions: navigation/menu links. */
 .yivic-lite-header a,
 .yivic-lite-header__nav a,
 .yivic-lite-header__bar a,
@@ -233,9 +281,7 @@ $yivic_content_link_scopes: (
   text-decoration: none !important;
 }
 
-/* -------------------------------------------------------------
-   4) Exclusions: do NOT underline button-like links
-   ------------------------------------------------------------- */
+/* Exclusions: button-like links. */
 a.wp-block-button__link,
 a.wp-element-button,
 a.button,
@@ -243,51 +289,7 @@ a[role="button"] {
   text-decoration: none !important;
 }
 
-/* -------------------------------------------------------------
-   5) Keyboard-only focus ring (prevents mouse/touch outlines)
-   ------------------------------------------------------------- */
-html.yivic-kbd a[href]:focus-visible,
-html.yivic-kbd button:focus-visible,
-html.yivic-kbd input:focus-visible,
-html.yivic-kbd select:focus-visible,
-html.yivic-kbd textarea:focus-visible,
-html.yivic-kbd summary:focus-visible,
-html.yivic-kbd [role="button"]:focus-visible,
-html.yivic-kbd [tabindex]:not([tabindex="-1"]):focus-visible,
-html.yivic-kbd [contenteditable="true"]:focus-visible {
-  outline: var(--yivic-focus-ring) solid var(--yivic-focus-color);
-  outline-offset: var(--yivic-focus-offset);
-}
-
-/* Remove outline when not in keyboard mode (mouse/touch). */
-a[href]:focus,
-button:focus,
-input:focus,
-select:focus,
-textarea:focus,
-summary:focus,
-[role="button"]:focus,
-[tabindex]:not([tabindex="-1"]):focus,
-[contenteditable="true"]:focus {
-  outline: none;
-}
-
-/* =============================================================
-   Global Focus Styles (Accessibility)
-   Applied only for keyboard users via `.yivic-kbd`
-   ============================================================= */
-
-:root {
-  /* Brand-friendly focus variables */
-  --yivic-focus-color: #3858e9;
-  --yivic-focus-ring: 2px;
-  --yivic-focus-offset: 2px;
-}
-
-/*
- * Show focus styles ONLY when keyboard navigation is detected.
- * This prevents unwanted outlines on mouse interaction.
- */
+/* Keyboard-only focus ring (enabled via `.yivic-kbd`). */
 html.yivic-kbd :where(
   a[href],
   button,
@@ -303,10 +305,7 @@ html.yivic-kbd :where(
   outline-offset: var(--yivic-focus-offset);
 }
 
-/*
- * Remove focus outline when not in keyboard mode
- * (e.g. mouse click or touch interaction)
- */
+/* Remove focus outline outside keyboard mode (mouse/touch). */
 :where(
   a[href],
   button,
@@ -319,70 +318,6 @@ html.yivic-kbd :where(
   [contenteditable="true"]
 ):focus {
   outline: none;
-}
-
-/* =============================================================
-   Edge case: Prevent long titles/strings from overflowing layout
-   -------------------------------------------------------------
-   Theme Unit Test includes extremely long unbroken words.
-   We ensure titles, headings, and common text blocks can wrap.
-   ============================================================= */
-
-/* Allow flex/grid items to shrink and avoid overflow issues */
-.yivic-lite-main,
-.yivic-lite-content,
-.yivic-lite-layout,
-.yivic-lite-post,
-.yivic-lite-page,
-.yivic-lite-sidebar {
-  min-width: 0;
-}
-
-/* Primary: wrap long, unbroken titles and headings */
-.yivic-lite-post__title,
-.yivic-lite-page__title,
-.yivic-lite-term-archive__title,
-.entry-title,
-.page-title,
-.widget-title,
-.wp-block-heading {
-  overflow-wrap: anywhere;
-  word-break: break-word; /* fallback */
-  hyphens: auto;
-}
-
-/* Breadcrumb/current item can also be extremely long */
-.yivic-lite-breadcrumb,
-.yivic-lite-breadcrumb a,
-.yivic-lite-breadcrumb span,
-.breadcrumb,
-.breadcrumb a {
-  overflow-wrap: anywhere;
-  word-break: break-word;
-}
-
-/* Safety for common long text blocks (optional but recommended) */
-.yivic-lite-post__content,
-.yivic-lite-page__content,
-.comment-content,
-.widget,
-.textwidget {
-  overflow-wrap: break-word;
-  word-break: break-word;
-}
-
-/* =======================================
- * Pre blocks: prevent overflow
- * ======================================= */
-pre {
-  max-width: 100%;
-  overflow-x: auto;
-  overflow-y: hidden;
-  -webkit-overflow-scrolling: touch;
-}
-
-pre code {
-  white-space: pre;
 }
 
 // ================================
