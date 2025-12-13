@@ -4,7 +4,7 @@ Tags: blog, one-column, two-columns, custom-logo, custom-menu, featured-images, 
 Requires at least: 5.0
 Tested up to: 6.8
 Requires PHP: 7.4
-Stable tag: 1.0.3
+Stable tag: 1.0.4
 License: GPLv3 or later
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -56,6 +56,17 @@ Yes. Yivic Lite is licensed under GPLv3, allowing use in personal and commercial
 You can report issues through the WordPress.org support forum.
 
 == Changelog ==
+
+= 1.0.4 - 2025-12-13 =
+* Improved keyboard navigation and overall accessibility.
+* Fixed focus trapping behavior inside modal dialogs.
+* Added visible focus indicators for links and dropdown toggles.
+* Ensured submenu items are accessible via keyboard navigation.
+* Ensured links are underlined in post content, excerpts, comments, and widgets.
+* Prevented long titles from causing horizontal scrolling.
+* Removed empty files and folders.
+* Improved output escaping and sanitization in templates.
+* Enabled editor styles support for the block editor.
 
 = 1.0.3 - 2025-12-06 =
 * Updated readme.txt for WordPress.org formatting.
