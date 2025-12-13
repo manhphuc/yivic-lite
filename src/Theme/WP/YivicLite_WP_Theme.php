@@ -202,6 +202,8 @@ class YivicLite_WP_Theme extends Container implements WPThemeInterface {
             ]
         );
 
+        // Enable editor styles support for the block editor.
+        add_theme_support( 'editor-styles' );
         add_editor_style( 'public-assets/dist/css/admin.css' );
 
         // Register navigation menu locations so the theme
