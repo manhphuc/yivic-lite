@@ -50,13 +50,11 @@
   }
 
   .widget ul li a {
-    color: #555;
-    text-decoration: none;
-    @include yivic-transition(color, $yivic-header-transition-fast);
-
-    &:hover,
+    &:hover {
+      color: var(--yivic-focus-color);
+    }
     &:focus {
-      color: #b48ad7;
+      color: var(--yivic-focus-color);
       text-decoration: underline;
     }
   }

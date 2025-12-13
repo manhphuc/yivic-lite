@@ -120,6 +120,159 @@
 }
 
 /* =============================================================
+   Accessibility: Content Links must be underlined (WP.org)
+   ---------------------------------------------------------
+   Requirement:
+   - Links inside readable content areas must not rely on color alone.
+   - Underlines must remain visible on hover/focus, too.
+   Scope:
+   - the_content(), the_excerpt()
+   - term descriptions
+   - comment content + comment form notes (logged-in-as)
+   - common sidebar widgets (archives, categories, recent posts/comments)
+   Exclusions:
+   - navigation/menu links
+   - button-like links
+   ============================================================= */
+
+/* -------------------------------------------------------------
+   0) Shared focus variables
+   ------------------------------------------------------------- */
+:root {
+  --yivic-focus-color: #3858e9;
+  --yivic-focus-ring: 2px;
+  --yivic-focus-offset: 2px;
+
+  /* Link underline tuning */
+  --yivic-link-underline: max(1px, 0.08em);
+  --yivic-link-underline-hover: max(2px, 0.15em);
+  --yivic-link-underline-offset: 0.15em;
+}
+
+/* -------------------------------------------------------------
+   1) Readable content link targets
+   ------------------------------------------------------------- */
+$yivic_content_link_scopes: (
+  /* Post/page content wrappers (theme + core fallbacks) */
+        ".yivic-lite-post__content",
+        ".yivic-lite-post__excerpt",
+        ".yivic-lite-post__desc",
+        ".yivic-lite-page__content",
+        ".entry-content",
+        ".entry-summary",
+        ".wp-block-post-content",
+        ".wp-block-post-excerpt__excerpt",
+
+          /* Taxonomy/term descriptions */
+        ".term-description",
+        ".taxonomy-description",
+
+          /* Post meta/footer areas that contain text links */
+        ".yivic-lite-post__footer",
+        ".yivic-lite-post__meta",
+        ".yivic-lite-post-nav",
+
+          /* Comments (content + form notes like logged-in-as) */
+        ".comment-content",
+        ".wp-block-comment-content",
+        ".yivic-lite-comments__content",
+        ".comment-respond",
+        ".logged-in-as",
+        ".comment-notes",
+
+          /* Sidebar & common widgets (classic + blocks) */
+        ".yivic-lite-sidebar",
+        ".widget",
+        ".widget-area",
+        ".widget_archive",
+        ".widget_categories",
+        ".widget_recent_entries",
+        ".widget_recent_comments",
+        ".widget_meta",
+        ".widget_pages",
+        ".textwidget",
+        ".wp-block-archives",
+        ".wp-block-categories",
+        ".wp-block-latest-posts",
+        ".wp-block-latest-comments",
+        ".wp-block-page-list"
+);
+
+/* -------------------------------------------------------------
+   2) Apply underline to links inside those content scopes
+   Notes:
+   - We avoid :where() here (specificity = 0) to prevent overrides.
+   ------------------------------------------------------------- */
+@each $scope in $yivic_content_link_scopes {
+  #{$scope} a {
+    text-decoration: underline;
+    text-decoration-thickness: var(--yivic-link-underline);
+    text-underline-offset: var(--yivic-link-underline-offset);
+
+    &:hover,
+    &:focus-visible {
+      text-decoration-thickness: var(--yivic-link-underline-hover);
+    }
+  }
+}
+
+/* -------------------------------------------------------------
+   3) Exclusions: do NOT underline navigation/menu links
+   ------------------------------------------------------------- */
+.yivic-lite-header a,
+.yivic-lite-header__nav a,
+.yivic-lite-header__bar a,
+.main-navigation a,
+.wp-block-navigation a,
+.wp-block-navigation__container a,
+.menu a,
+.sub-menu a,
+.nav-links a,
+.pagination a,
+.page-numbers a {
+  text-decoration: none !important;
+}
+
+/* -------------------------------------------------------------
+   4) Exclusions: do NOT underline button-like links
+   ------------------------------------------------------------- */
+a.wp-block-button__link,
+a.wp-element-button,
+a.button,
+a[role="button"] {
+  text-decoration: none !important;
+}
+
+/* -------------------------------------------------------------
+   5) Keyboard-only focus ring (prevents mouse/touch outlines)
+   ------------------------------------------------------------- */
+html.yivic-kbd a[href]:focus-visible,
+html.yivic-kbd button:focus-visible,
+html.yivic-kbd input:focus-visible,
+html.yivic-kbd select:focus-visible,
+html.yivic-kbd textarea:focus-visible,
+html.yivic-kbd summary:focus-visible,
+html.yivic-kbd [role="button"]:focus-visible,
+html.yivic-kbd [tabindex]:not([tabindex="-1"]):focus-visible,
+html.yivic-kbd [contenteditable="true"]:focus-visible {
+  outline: var(--yivic-focus-ring) solid var(--yivic-focus-color);
+  outline-offset: var(--yivic-focus-offset);
+}
+
+/* Remove outline when not in keyboard mode (mouse/touch). */
+a[href]:focus,
+button:focus,
+input:focus,
+select:focus,
+textarea:focus,
+summary:focus,
+[role="button"]:focus,
+[tabindex]:not([tabindex="-1"]):focus,
+[contenteditable="true"]:focus {
+  outline: none;
+}
+
+/* =============================================================
    Global Focus Styles (Accessibility)
    Applied only for keyboard users via `.yivic-kbd`
    ============================================================= */
