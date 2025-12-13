@@ -321,6 +321,56 @@ html.yivic-kbd :where(
   outline: none;
 }
 
+/* =============================================================
+   Edge case: Prevent long titles/strings from overflowing layout
+   -------------------------------------------------------------
+   Theme Unit Test includes extremely long unbroken words.
+   We ensure titles, headings, and common text blocks can wrap.
+   ============================================================= */
+
+/* Allow flex/grid items to shrink and avoid overflow issues */
+.yivic-lite-main,
+.yivic-lite-content,
+.yivic-lite-layout,
+.yivic-lite-post,
+.yivic-lite-page,
+.yivic-lite-sidebar {
+  min-width: 0;
+}
+
+/* Primary: wrap long, unbroken titles and headings */
+.yivic-lite-post__title,
+.yivic-lite-page__title,
+.yivic-lite-term-archive__title,
+.entry-title,
+.page-title,
+.widget-title,
+.wp-block-heading {
+  overflow-wrap: anywhere;
+  word-break: break-word; /* fallback */
+  hyphens: auto;
+}
+
+/* Breadcrumb/current item can also be extremely long */
+.yivic-lite-breadcrumb,
+.yivic-lite-breadcrumb a,
+.yivic-lite-breadcrumb span,
+.breadcrumb,
+.breadcrumb a {
+  overflow-wrap: anywhere;
+  word-break: break-word;
+}
+
+/* Safety for common long text blocks (optional but recommended) */
+.yivic-lite-post__content,
+.yivic-lite-page__content,
+.comment-content,
+.widget,
+.textwidget {
+  overflow-wrap: break-word;
+  word-break: break-word;
+}
+
 // ================================
 // Footer
 // ================================

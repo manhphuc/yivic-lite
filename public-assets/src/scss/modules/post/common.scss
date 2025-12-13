@@ -1,13 +1,19 @@
-// =======================================
-// Mobile-first Post List Layout
-// Block: .yivic-post
-// Elements: __thumbnail, __title, __meta, __excerpt
-// Description: Vertical stacked layout on mobile.
-// =======================================
+/* ============================================================
+   Post Card (Mobile-first)
+   Block: .yivic-post
+   Elements:
+   - .yivic-lite-post__thumbnail
+   - .yivic-lite-post__title
+   - .yivic-lite-post__meta
+   - .yivic-lite-post__excerpt
+   Notes:
+   - Stacked layout on mobile (thumbnail → title → meta → excerpt).
+   - Includes Theme Unit Test protection for long unbroken strings.
+   ============================================================ */
 
 .yivic-post {
   background: #fff;
-  margin: 0 0 10px 0;
+  margin: 0 0 10px;
   padding: 10px;
   border-radius: 5px;
 
@@ -15,20 +21,18 @@
   flex-direction: column;
   gap: 12px;
 
-  //border-bottom: 1px solid $yivic-post-border-color;
-
-  &:last-child {
-    border-bottom: none;
-  }
+  /* Flex/Grid safety: allow children to shrink so wrapping can work */
+  min-width: 0;
 }
 
-// ---------------------------------------
-// Thumbnail (full width on mobile)
-// ---------------------------------------
+/* ------------------------------------------------------------
+   Thumbnail (full width on mobile)
+   ------------------------------------------------------------ */
 
 .yivic-lite-post__thumbnail {
   width: 100%;
   min-height: $yivic-post-thumb-height;
+  min-width: 0;
 
   background: $yivic-post-thumb-bg;
   border-radius: 5px;
@@ -41,51 +45,73 @@
   }
 
   img {
+    display: block;
     width: 100%;
     height: 100%;
-    display: block;
-    object-fit: cover; // Keeps a clean cropped appearance
+    object-fit: cover;
   }
 }
 
-// ---------------------------------------
-// Title
-// ---------------------------------------
+/* ------------------------------------------------------------
+   Title
+   - Readable wrapping for long strings (Theme Unit Test)
+   ------------------------------------------------------------ */
 
 .yivic-lite-post__title {
   margin: 0 0 6px;
+  min-width: 0;
+
   font-size: 18px;
   line-height: 1.4;
   font-weight: 700;
   color: $yivic-post-title-color;
 
+  /* Prevent overflow for long unbroken titles */
+  white-space: normal;
+  overflow-wrap: break-word;
+  word-break: normal;
+  hyphens: auto;
+
   a {
     color: inherit;
     text-decoration: none;
+
     @include yivic-transition(color, $yivic-header-transition-fast);
 
+    /* Keep hover/focus subtle; global A11y rules can underline in content zones */
     &:hover,
-    &:focus {
+    &:focus-visible {
       text-decoration: underline;
     }
   }
 }
 
-// ---------------------------------------
-// Meta Row (author avatar + category + date)
-// ---------------------------------------
-
+/* ------------------------------------------------------------
+   Meta row (avatar + category + date)
+   ------------------------------------------------------------ */
 .yivic-lite-post__meta {
   display: flex;
   align-items: center;
   gap: 8px;
 
   margin-bottom: 6px;
+  min-width: 0;
+
   font-size: 12px;
   color: $yivic-post-meta-color;
+
+  // Category badge link (anchor)
+  a.yivic-lite-post__meta-category {
+    text-decoration: none;
+
+    // Prevent overflow for long/unbroken strings
+    overflow-wrap: break-word;
+    word-break: break-word; // fallback for older engines
+    hyphens: auto;
+  }
 }
 
-// Author avatar
+/* Author avatar */
 .yivic-lite-post__meta-avatar {
   @include yivic-flex-center(true);
   width: 24px;
@@ -95,64 +121,117 @@
   flex-shrink: 0;
 
   .yivic-lite-post__meta-avatar-img {
+    display: block;
     width: 100%;
     height: 100%;
-    object-fit: cover;
-    display: block;
     border-radius: 50%;
+    object-fit: cover;
   }
 }
 
-// Category badge
+/* Category badge */
 .yivic-lite-post__meta-category {
   padding: 5px 10px;
   border-radius: 3px;
 
   font-size: 12px;
-  letter-spacing: .1em;
+  letter-spacing: 0.1em;
 
   background-color: $yivic-post-category-bg;
   color: #fff;
   font-weight: 600;
-  text-decoration: none;
 
   @include yivic-transition(background-color, $yivic-header-transition-fast);
 
   &:hover,
-  &:focus {
+  &:focus-visible {
     background-color: darken($yivic-post-category-bg, 6%);
   }
 }
 
-// Date
+/* Date */
 .yivic-lite-post__meta-date {
-  color: $yivic-post-meta-color;
   font-size: 12px;
+  color: $yivic-post-meta-color;
 }
 
-// ---------------------------------------
-// Excerpt
-// ---------------------------------------
+/* ------------------------------------------------------------
+   Excerpt
+   - Stronger wrapping for long unbroken content (Theme Unit Test)
+   ------------------------------------------------------------ */
 
 .yivic-lite-post__excerpt {
+  min-width: 0;
   font-size: 14px;
   line-height: 1.6;
   color: $yivic-post-text-color;
+
+  /* Prevent overflow for long unbroken strings inside excerpt */
+  overflow-wrap: break-word;
+  word-break: break-word;
+  hyphens: auto;
+
+  p {
+    overflow-wrap: inherit;
+    word-break: inherit;
+    hyphens: inherit;
+  }
 }
-// ---------------------------------------
-// Commons
-// ---------------------------------------
-.yivic-lite-category-archive__header, .yivic-lite-date-archive__header, .yivic-lite-author-archive__header, .yivic-lite-tag-archive__header, .yivic-lite-search__header {
+
+/* ============================================================
+   Archive Headers (shared)
+   Targets: category/date/author/tag/search
+   ============================================================ */
+
+:where(
+  .yivic-lite-category-archive__header,
+  .yivic-lite-date-archive__header,
+  .yivic-lite-author-archive__header,
+  .yivic-lite-tag-archive__header,
+  .yivic-lite-search__header
+) {
   margin-bottom: 18px;
 }
 
-.yivic-lite-category-archive__title, .yivic-lite-date-archive__title, .yivic-lite-author-archive__title, .yivic-lite-tag-archive__title, .yivic-lite-search__title {
+:where(
+  .yivic-lite-category-archive__title,
+  .yivic-lite-date-archive__title,
+  .yivic-lite-author-archive__title,
+  .yivic-lite-tag-archive__title,
+  .yivic-lite-search__title
+) {
   margin: 0 0 4px;
 }
 
-.yivic-lite-category-archive__description {
-  margin: 4px 0 16px;
+/* ------------------------------------------------------------
+   Archive descriptions (Theme Unit Test: long unbroken strings)
+   ------------------------------------------------------------ */
+
+:where(
+  .yivic-lite-category-archive__description,
+  .yivic-lite-term-archive__description,
+  .term-description,
+  .taxonomy-description,
+  .archive-description
+) {
+
   font-size: 14px;
   line-height: 1.6;
   color: $yivic-post-meta-color;
+  overflow-wrap: break-word;
+  word-break: break-word;
+  hyphens: auto;
+}
+
+:where(
+  .yivic-lite-category-archive__description,
+  .yivic-lite-term-archive__description,
+  .term-description,
+  .taxonomy-description,
+  .archive-description
+) p {
+  margin: 4px 0 16px;
+  overflow-wrap: inherit;
+  word-break: inherit;
+  hyphens: inherit;
 }
