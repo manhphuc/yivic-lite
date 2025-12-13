@@ -371,6 +371,20 @@ html.yivic-kbd :where(
   word-break: break-word;
 }
 
+/* =======================================
+ * Pre blocks: prevent overflow
+ * ======================================= */
+pre {
+  max-width: 100%;
+  overflow-x: auto;
+  overflow-y: hidden;
+  -webkit-overflow-scrolling: touch;
+}
+
+pre code {
+  white-space: pre;
+}
+
 // ================================
 // Footer
 // ================================
