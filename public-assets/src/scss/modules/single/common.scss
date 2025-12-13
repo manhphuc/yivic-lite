@@ -7,6 +7,7 @@
 .yivic-lite-post--single {
   .yivic-lite-post__meta {
     a {
+      &:hover { color: var(--yivic-focus-color);text-decoration-thickness: max(2px, 0.15em); }
       color: $yivic-meta-current-color;
       text-decoration: underline;
     }
