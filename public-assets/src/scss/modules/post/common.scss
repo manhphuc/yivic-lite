@@ -200,7 +200,15 @@
   .yivic-lite-tag-archive__title,
   .yivic-lite-search__title
 ) {
-  margin: 0 0 4px;
+  margin: 0 0 10px;
+}
+
+.yivic-lite-category-archive__title,
+.yivic-lite-date-archive__title,
+.yivic-lite-author-archive__title,
+.yivic-lite-tag-archive__title,
+.yivic-lite-search__title, .yivic-lite-search__subtitle {
+  margin: 0 0 10px;
 }
 
 /* ------------------------------------------------------------
