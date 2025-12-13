@@ -4,7 +4,7 @@ Tags: blog, one-column, two-columns, custom-logo, custom-menu, featured-images, 
 Requires at least: 5.0
 Tested up to: 6.8
 Requires PHP: 7.4
-Stable tag: 1.0.7
+Stable tag: 1.0.8
 License: GPLv3 or later
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -56,6 +56,9 @@ Yes. Yivic Lite is licensed under GPLv3, allowing use in personal and commercial
 You can report issues through the WordPress.org support forum.
 
 == Changelog ==
+
+= 1.0.8 - 2025-12-13 =
+* Fixed floated image alignment issues that could affect footer and comments layout.
 
 = 1.0.7 - 2025-12-13 =
 * Improved sticky header behavior and scroll handling.
