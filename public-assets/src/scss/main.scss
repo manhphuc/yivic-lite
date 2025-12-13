@@ -119,6 +119,55 @@
   z-index: 1000;
 }
 
+/* =============================================================
+   Global Focus Styles (Accessibility)
+   Applied only for keyboard users via `.yivic-kbd`
+   ============================================================= */
+
+:root {
+  /* Brand-friendly focus variables */
+  --yivic-focus-color: #3858e9;
+  --yivic-focus-ring: 2px;
+  --yivic-focus-offset: 2px;
+}
+
+/*
+ * Show focus styles ONLY when keyboard navigation is detected.
+ * This prevents unwanted outlines on mouse interaction.
+ */
+html.yivic-kbd :where(
+  a[href],
+  button,
+  input,
+  select,
+  textarea,
+  summary,
+  [role="button"],
+  [tabindex]:not([tabindex="-1"]),
+  [contenteditable="true"]
+):focus-visible {
+  outline: var(--yivic-focus-ring) solid var(--yivic-focus-color);
+  outline-offset: var(--yivic-focus-offset);
+}
+
+/*
+ * Remove focus outline when not in keyboard mode
+ * (e.g. mouse click or touch interaction)
+ */
+:where(
+  a[href],
+  button,
+  input,
+  select,
+  textarea,
+  summary,
+  [role="button"],
+  [tabindex]:not([tabindex="-1"]),
+  [contenteditable="true"]
+):focus {
+  outline: none;
+}
+
 // ================================
 // Footer
 // ================================
