@@ -118,7 +118,60 @@
   color: #fff;
   z-index: 1000;
 }
+/* =========================================
+   Global Focus Styles (A11y)
+   ========================================= */
+:root {
+  --yivic-focus-color: #3858e9; /* có thể đổi theo brand */
+  --yivic-focus-ring: 2px;
+  --yivic-focus-offset: 2px;
+}
 
+:where(
+  a[href],
+  button,
+  input,
+  select,
+  textarea,
+  summary,
+  [role="button"],
+  [tabindex]:not([tabindex="-1"]),
+  [contenteditable="true"]
+):focus-visible {
+  outline: var(--yivic-focus-ring) solid var(--yivic-focus-color);
+  outline-offset: var(--yivic-focus-offset);
+}
+
+:where(
+  a[href],
+  button,
+  input,
+  select,
+  textarea,
+  summary,
+  [role="button"],
+  [tabindex]:not([tabindex="-1"]),
+  [contenteditable="true"]
+):focus {
+  outline: var(--yivic-focus-ring) solid var(--yivic-focus-color);
+  outline-offset: var(--yivic-focus-offset);
+}
+
+@supports selector(:focus-visible) {
+  :where(
+    a[href],
+    button,
+    input,
+    select,
+    textarea,
+    summary,
+    [role="button"],
+    [tabindex]:not([tabindex="-1"]),
+    [contenteditable="true"]
+  ):focus:not(:focus-visible) {
+    outline: none;
+  }
+}
 // ================================
 // Footer
 // ================================

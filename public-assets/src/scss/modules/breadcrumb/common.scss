@@ -1,21 +1,16 @@
 // =============================================================
-// Breadcrumb styles – Yivic Lite
-// Block: .yivic-lite-breadcrumb
-// Elements: __list, __item, __link, __current
-// Description:
-//   Mobile-first breadcrumb bar used above main content.
-//   Uses simple inline separators ("›") and subtle styling
-//   to keep the UI clean and minimal.
+// Breadcrumb – Yivic Lite
+// - Mobile-first breadcrumb bar (above main content)
+// - Uses a simple "›" separator
+// - Keyboard focus ring is shown ONLY in keyboard mode (html.yivic-kbd)
 // =============================================================
 
 .yivic-lite-breadcrumb {
   margin: 12px 0 18px;
+  width: 100%;
   font-size: 13px;
   line-height: 1.6;
   color: $yivic-post-meta-color;
-
-  // Ensure breadcrumb never overflows the layout container.
-  width: 100%;
 }
 
 .yivic-lite-breadcrumb__list {
@@ -23,20 +18,20 @@
   flex-wrap: wrap;
   align-items: center;
   gap: 4px;
-  list-style: none;
   margin: 0;
   padding: 0;
+  list-style: none;
 }
 
 .yivic-lite-breadcrumb__item {
   display: inline-flex;
   align-items: center;
-  white-space: nowrap;
   max-width: 100%;
+  white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
 
-  // Separator "›" after each item except the last one.
+  // "›" separator (hidden on the last item)
   &::after {
     content: "›";
     margin: 0 6px;
@@ -47,21 +42,34 @@
     content: "";
     margin: 0;
   }
+
+  // Prevent focus ring on mouse click (focus-within still happens on click)
+  &:focus-within {
+    outline: none;
+  }
 }
 
 .yivic-lite-breadcrumb__link {
-  text-decoration: none;
   color: $yivic-post-meta-color;
+  text-decoration: none;
   @include yivic-transition(color);
 
   &:hover,
-  &:focus {
+  &:focus-visible {
     color: $yivic-post-title-color;
     text-decoration: underline;
+    outline: none; // the ring is drawn on the <li> in keyboard mode
   }
 }
 
 .yivic-lite-breadcrumb__current {
   font-weight: 500;
   color: $yivic-post-title-color;
+}
+
+// Keyboard-only focus ring (enabled by JS: html.yivic-kbd)
+html.yivic-kbd .yivic-lite-breadcrumb__item:focus-within {
+  outline: var(--yivic-focus-ring) solid var(--yivic-focus-color);
+  outline-offset: var(--yivic-focus-offset);
+  border-radius: 4px;
 }

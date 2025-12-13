@@ -40,7 +40,7 @@ if ( empty( $items ) || count( $items ) <= 1 ) {
                         <span itemprop="name"><?php echo esc_html( $label ); ?></span>
                     </a>
                 <?php else : ?>
-                    <span class="yivic-lite-breadcrumb__current" itemprop="name">
+                    <span class="yivic-lite-breadcrumb__current" itemprop="name" aria-current="page">
                         <?php echo esc_html( $label ); ?>
                     </span>
                 <?php endif; ?>

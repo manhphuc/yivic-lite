@@ -582,4 +582,42 @@
 
         window.addEventListener('scroll', handleScroll, { passive: true });
     })();
+
+    // =============================================================
+    // Keyboard-mode detection (A11y)
+    // - Adds `html.yivic-kbd` when the user navigates via keyboard
+    // - Removes it when the user interacts via pointer (mouse/touch)
+    // - Used to show focus rings only for keyboard users
+    // =============================================================
+    (() => {
+        const ROOT = document.documentElement;
+        const CLASS_KBD = 'yivic-kbd';
+
+        // Keys that indicate keyboard navigation intent.
+        const KBD_KEYS = new Set([
+            'Tab',
+            'ArrowUp',
+            'ArrowDown',
+            'ArrowLeft',
+            'ArrowRight',
+            'Enter',
+            ' ',
+            'Escape',
+        ]);
+
+        const enableKbdMode = () => ROOT.classList.add(CLASS_KBD);
+        const disableKbdMode = () => ROOT.classList.remove(CLASS_KBD);
+
+        document.addEventListener(
+            'keydown',
+            (e) => {
+                if (KBD_KEYS.has(e.key)) enableKbdMode();
+            },
+            true
+        );
+
+        // Use pointer events (covers mouse + touch + pen).
+        document.addEventListener('pointerdown', disableKbdMode, true);
+    })();
+
 })();
