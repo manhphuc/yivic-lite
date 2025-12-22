@@ -41,7 +41,6 @@
   &__logo {
     position: relative;
     height: $yivic-header-height;
-    overflow: hidden; // avoid overflow if the image is larger
     @include yivic-flex-center(); // vertical + horizontal center
 
     // Force WP custom logo link to be flex so the image is centered vertically
