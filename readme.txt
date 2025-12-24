@@ -4,7 +4,7 @@ Tags: blog, one-column, two-columns, custom-logo, custom-menu, featured-images, 
 Requires at least: 5.0
 Tested up to: 6.8
 Requires PHP: 7.4
-Stable tag: 1.1.0
+Stable tag: 1.1.1
 License: GPLv3 or later
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -56,6 +56,11 @@ Yes. Yivic Lite is licensed under GPLv3, allowing use in personal and commercial
 You can report issues through the WordPress.org support forum.
 
 == Changelog ==
+
+= 1.1.1 - 2025-12-24 =
+* Fix: Restored correct keyboard focus on the site logo when a custom logo image is used.
+* Fix: Ensured consistent Shift+Tab navigation order in the mobile header.
+* JavaScript-only change. No visual or layout changes.
 
 = 1.1.0 - 2025-12-24 =
 * Fix: Mobile keyboard navigation (Shift+Tab) in the header.

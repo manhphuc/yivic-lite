@@ -5,7 +5,7 @@
  * Description:  A clean and lightweight classic theme focused on readability and simple layout structure. Designed with modern HTML5 standards, customizer options, and flexible templates for blogs and personal sites.
  * Author:       Phuc Nguyen
  * Author URI:   https://github.com/manhphuc
- * Version:      1.1.0
+ * Version:      1.1.1
  * Text Domain:  yivic-lite
  */
 
@@ -17,7 +17,7 @@ defined( 'ABSPATH' ) || exit;
 |--------------------------------------------------------------------------
 */
 
-defined( 'YIVIC_LITE_VERSION' ) || define( 'YIVIC_LITE_VERSION', '1.1.0' );
+defined( 'YIVIC_LITE_VERSION' ) || define( 'YIVIC_LITE_VERSION', '1.1.1' );
 defined( 'YIVIC_LITE_SLUG' )    || define( 'YIVIC_LITE_SLUG', 'yivic-lite' );
 
 /*
