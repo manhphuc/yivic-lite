@@ -6,6 +6,7 @@
  * - Focus management & keyboard trap for search (Esc to close, Shift+Tab to exit backward)
  * - Mobile off-canvas menu toggle (click + auto-open on keyboard focus)
  * - Focus trap for mobile menu (Esc to close, Shift+Tab on first item closes)
+ * - Logo Shift+Tab intercept (auto-opens mobile menu on backward navigation)
  * - Submenu toggle (accordion style) for all depths with accessible keyboard behavior
  * - Sticky header (adds body padding to prevent layout jump)
  *
@@ -72,7 +73,7 @@
     // - Keyboard focus on icon auto-opens (only if navigating with Tab)
     // - Esc closes
     // - Tab trap inside search (icon + panel controls)
-    // - Shift+Tab on the icon closes and moves focus to the previous element outside search
+    // - Shift+Tab on the icon: On mobile -> focus logo, On desktop -> focus previous element
     // ==========================================================
     (function initSearchToggle() {
         const searchBox = $('.yivic-lite-header__search');
@@ -132,10 +133,27 @@
         };
 
         /**
-         * Move focus to the previous focusable element *outside* the search box.
-         * Used when exiting backward via Shift+Tab from the icon.
+         * Move focus to the logo on mobile or previous visible element on desktop.
+         * Used when exiting backward via Shift+Tab from the search icon.
          */
         const focusPrevOutsideSearch = () => {
+            const menuToggle = $('#yivicMenuToggle');
+            const logo = $('.yivic-lite-header__logo-link');
+
+            // Check if on mobile (menu toggle is visible)
+            const isMobile = menuToggle && (
+                menuToggle.offsetWidth ||
+                menuToggle.offsetHeight ||
+                menuToggle.getClientRects().length
+            );
+
+            // On mobile: focus the logo directly to avoid hidden menu items
+            if (isMobile && logo) {
+                logo.focus();
+                return;
+            }
+
+            // On desktop: find the previous visible focusable element
             const all = getAllFocusable();
             const idx = all.indexOf(searchIcon);
             if (idx <= 0) return;
@@ -329,6 +347,109 @@
             },
             true
         );
+
+        // Handle viewport resize: close mobile menu when switching between desktop/mobile
+        let prevToggleVisible = menuOpenBtn.offsetWidth > 0 ||
+            menuOpenBtn.offsetHeight > 0 ||
+            menuOpenBtn.getClientRects().length > 0;
+
+        window.addEventListener('resize', () => {
+            const currentToggleVisible = menuOpenBtn.offsetWidth > 0 ||
+                menuOpenBtn.offsetHeight > 0 ||
+                menuOpenBtn.getClientRects().length > 0;
+
+            // If toggle visibility changed (desktop ↔ mobile transition)
+            if (prevToggleVisible !== currentToggleVisible) {
+                // Close menu if it's open to prevent focus issues
+                if (isMenuOpen()) {
+                    menuWrapper.classList.remove('yivic-lite-header__links--open');
+                    menuOpenBtn.setAttribute('aria-expanded', 'false');
+                    menuOpenBtn.setAttribute('aria-label', 'Open menu');
+                }
+
+                // Fix focus when transitioning to mobile while focus is in menu
+                // If current focus is inside the menu wrapper and we're switching to mobile
+                const activeElement = document.activeElement;
+                if (currentToggleVisible && menuWrapper.contains(activeElement)) {
+                    // Move focus to logo to prevent focus getting lost in off-canvas menu
+                    const logo = $('.yivic-lite-header__logo-link');
+                    if (logo) {
+                        requestAnimationFrame(() => logo.focus());
+                    }
+                }
+            }
+
+            prevToggleVisible = currentToggleVisible;
+        });
+    })();
+
+    // ==========================================================
+    // Logo/Site Title - Shift+Tab Intercept (Mobile)
+    // Purpose: Fix focus loss when user presses Shift+Tab from logo
+    //
+    // Issue: On mobile, when user navigates backward (Shift+Tab) from
+    // the site title/logo, focus gets lost into the hidden off-canvas menu
+    // instead of opening the menu properly.
+    //
+    // Solution: Intercept Shift+Tab on logo link, auto-open mobile menu,
+    // and place focus on the last focusable item inside the menu.
+    //
+    // Behavior:
+    // - Only activates on mobile (when toggle button is visible)
+    // - Prevents default backward tab navigation
+    // - Opens the mobile menu automatically
+    // - Moves focus to the last menu item for natural backward flow
+    // ==========================================================
+    (function initLogoShiftTabFix() {
+        const logo = $('.yivic-lite-header__logo-link');
+        const menuWrapper = $('.yivic-lite-header__links');
+        const menuOpenBtn = $('#yivicMenuToggle');
+
+        if (!logo || !menuWrapper || !menuOpenBtn) return;
+
+        const isMenuOpen = () => menuWrapper.classList.contains('yivic-lite-header__links--open');
+
+        const openMenu = () => {
+            if (isMenuOpen()) return;
+            menuWrapper.classList.add('yivic-lite-header__links--open');
+            menuOpenBtn.setAttribute('aria-expanded', 'true');
+            menuOpenBtn.setAttribute('aria-label', 'Close menu');
+        };
+
+        /**
+         * Check if mobile menu toggle button is currently visible.
+         * Used to detect mobile viewport where this fix should activate.
+         */
+        const isToggleVisible = () => {
+            return !!(
+                menuOpenBtn.offsetWidth ||
+                menuOpenBtn.offsetHeight ||
+                menuOpenBtn.getClientRects().length
+            );
+        };
+
+        // Intercept Shift+Tab on logo/site title
+        logo.addEventListener('keydown', (e) => {
+            // Only handle Shift+Tab key combination
+            if (e.key !== 'Tab' || !e.shiftKey) return;
+
+            // Only activate on mobile (when toggle button is visible)
+            if (!isToggleVisible()) return;
+
+            // Prevent default backward tab behavior to avoid focus getting lost
+            e.preventDefault();
+
+            // Open the mobile menu
+            openMenu();
+
+            // Move focus to the last focusable item in the menu after paint
+            requestAnimationFrame(() => {
+                const focusables = getFocusable(menuWrapper);
+                if (focusables.length > 0) {
+                    focusables[focusables.length - 1].focus();
+                }
+            });
+        });
     })();
 
     // ==========================================================
@@ -581,7 +702,7 @@
         };
 
         const computeStartY = () => {
-            // vị trí top của stickyBar tính theo document
+            // Calculate the top position of stickyBar relative to document
             const rect = stickyBar.getBoundingClientRect();
             startY = rect.top + window.scrollY;
         };
@@ -612,7 +733,7 @@
             computeStartY();
             handle();
         }, { passive: true });
-        
+
         window.addEventListener('load', () => {
             applyAdminOffset();
             computeStartY();
