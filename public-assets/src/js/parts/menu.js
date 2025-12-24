@@ -138,7 +138,7 @@
          */
         const focusPrevOutsideSearch = () => {
             const menuToggle = $('#yivicMenuToggle');
-            const logo = $('.yivic-lite-header__logo-link');
+            const logo = $('.yivic-lite-header__logo-link') || $('.custom-logo-link');
 
             // Check if on mobile (menu toggle is visible)
             const isMobile = menuToggle && (
@@ -372,7 +372,7 @@
                 const activeElement = document.activeElement;
                 if (currentToggleVisible && menuWrapper.contains(activeElement)) {
                     // Move focus to logo to prevent focus getting lost in off-canvas menu
-                    const logo = $('.yivic-lite-header__logo-link');
+                    const logo = $('.yivic-lite-header__logo-link') || $('.custom-logo-link');
                     if (logo) {
                         requestAnimationFrame(() => logo.focus());
                     }
@@ -401,7 +401,7 @@
     // - Moves focus to the last menu item for natural backward flow
     // ==========================================================
     (function initLogoShiftTabFix() {
-        const logo = $('.yivic-lite-header__logo-link');
+        const logo = $('.yivic-lite-header__logo-link') || $('.custom-logo-link');
         const menuWrapper = $('.yivic-lite-header__links');
         const menuOpenBtn = $('#yivicMenuToggle');
 
