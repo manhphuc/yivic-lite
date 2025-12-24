@@ -4,7 +4,7 @@ use Yivic\YivicLite\Theme\Services\ViewService;
 use Yivic\YivicLite\Theme\Services\YivicLiteService;
 
 // Make sure these constants are defined in functions.php
-// defined('YIVIC_LITE_VERSION') || define('YIVIC_LITE_VERSION', '1.0.9');
+// defined('YIVIC_LITE_VERSION') || define('YIVIC_LITE_VERSION', '1.1.0');
 
 $textDomain = 'yivic-lite';
 
